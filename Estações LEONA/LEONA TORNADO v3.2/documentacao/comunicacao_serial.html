@@ -1,0 +1,285 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>comunicacao_serial &mdash; documentação Projeto LEONA 3.0</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Índice"
+              href="genindex.html"/>
+        <link rel="search" title="Buscar" href="search.html"/>
+    <link rel="top" title="documentação Projeto LEONA 3.0" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="RedeLeonaDoc.html" class="icon icon-home"> Projeto LEONA
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                3.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="Primeiros Passos.html">Primeiros Passos</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="RedeLeonaDoc.html">Projeto LEONA</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="RedeLeonaDoc.html">Docs</a> &raquo;</li>
+        
+      <li>comunicacao_serial</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/comunicacao_serial.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="comunicacao-serial">
+<h1>comunicacao_serial<a class="headerlink" href="#comunicacao-serial" title="Link permanente para este título">¶</a></h1>
+<p>Classe responsável por criar um canal de comunicação com o arduino.</p>
+<span class="target" id="module-comunicacao_serial"></span><dl class="class">
+<dt id="comunicacao_serial.ComunicacaoSerial">
+<em class="property">class </em><code class="descclassname">comunicacao_serial.</code><code class="descname">ComunicacaoSerial</code><span class="sig-paren">(</span><em>port='COM3'</em>, <em>baudrate=9600</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/comunicacao_serial.html#ComunicacaoSerial"><span class="viewcode-link">[código fonte]</span></a><a class="headerlink" href="#comunicacao_serial.ComunicacaoSerial" title="Link permanente para esta definição">¶</a></dt>
+<dd><p>Base: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Inicia a Comunicação Serial</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parâmetros:</th><td class="field-body"><ul class="first last simple">
+<li><strong>port</strong> (<em>string</em>) – Recebe a porta COM em que o Arduino foi conectado, por padrão, porta COM3</li>
+<li><strong>baudrate</strong> (<em>inteiro</em>) – Taxa de aquisição de dados feita pelo Arduino, por padrão 9600</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="comunicacao_serial.ComunicacaoSerial.baudrate">
+<code class="descname">baudrate</code><em class="property"> = None</em><a class="headerlink" href="#comunicacao_serial.ComunicacaoSerial.baudrate" title="Link permanente para esta definição">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Variável baudarate:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">Recebe a taxa de aquisição de dados feita pelo Arduino</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="comunicacao_serial.ComunicacaoSerial.enviar">
+<code class="descname">enviar</code><span class="sig-paren">(</span><em>arg</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/comunicacao_serial.html#ComunicacaoSerial.enviar"><span class="viewcode-link">[código fonte]</span></a><a class="headerlink" href="#comunicacao_serial.ComunicacaoSerial.enviar" title="Link permanente para esta definição">¶</a></dt>
+<dd><p>Recebe o dado a ser enviado para o Arduino e depois limpa a memória para permitir novo envio de dados</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parâmetros:</th><td class="field-body"><strong>arg</strong> (<em>inteiro</em>) – Dado para teste da taxa de leitura das cameras. Teste feito com Osiloscópio e Arduino: taxa deve ser 30ms.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="comunicacao_serial.ComunicacaoSerial.ser">
+<code class="descname">ser</code><em class="property"> = None</em><a class="headerlink" href="#comunicacao_serial.ComunicacaoSerial.ser" title="Link permanente para esta definição">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Função ser:</th><td class="field-body">Abre comunicação a Comunicação Serial e é responsável por ler port e baudrate definidos</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Ana Laura Gonçalves da Silva e Igor Henrique Camargo.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'3.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

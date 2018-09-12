@@ -1,0 +1,432 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>controle_pantilt &mdash; documentação Projeto LEONA 3.0</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Índice"
+              href="genindex.html"/>
+        <link rel="search" title="Buscar" href="search.html"/>
+    <link rel="top" title="documentação Projeto LEONA 3.0" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="RedeLeonaDoc.html" class="icon icon-home"> Projeto LEONA
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                3.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="Primeiros Passos.html">Primeiros Passos</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="RedeLeonaDoc.html">Projeto LEONA</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="RedeLeonaDoc.html">Docs</a> &raquo;</li>
+        
+      <li>controle_pantilt</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/controle_pantilt.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="controle-pantilt">
+<h1>controle_pantilt<a class="headerlink" href="#controle-pantilt" title="Link permanente para este título">¶</a></h1>
+<p>Classe responsável por criar uma interface de comunicação com o arduino e o Pan-Tilt.</p>
+<span class="target" id="module-controle_pantilt"></span><dl class="class">
+<dt id="controle_pantilt.ControlePantilt">
+<em class="property">class </em><code class="descclassname">controle_pantilt.</code><code class="descname">ControlePantilt</code><span class="sig-paren">(</span><em>con=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controle_pantilt.html#ControlePantilt"><span class="viewcode-link">[código fonte]</span></a><a class="headerlink" href="#controle_pantilt.ControlePantilt" title="Link permanente para esta definição">¶</a></dt>
+<dd><p>Base: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Iniciar a posição do Pan-Tilt</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parâmetros:</th><td class="field-body"><strong>con</strong> (<em>object</em>) – Instância de comunicao serial</td>
+</tr>
+</tbody>
+</table>
+<p>Padrão de comando de comunicação entre Arduino e Pan-Tilt:</p>
+<div class="code bash highlight-default"><div class="highlight"><pre><span></span>!000U* - Mover para cima
+!000D* - Mover para baixo
+!000R* - Mover para direita
+!000L* - Mover para esquerda
+!111O* - Ligar camera (um,um,um,letra &#39;O&#39;)
+!111F* - Desligar camera
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>Valores máximos e mínimos:</dt>
+<dd>Azimute: 0º -&gt; 350º
+Elevação: -35º -&gt; +35º</dd>
+</dl>
+<dl class="attribute">
+<dt id="controle_pantilt.ControlePantilt.azGraus">
+<code class="descname">azGraus</code><em class="property"> = None</em><a class="headerlink" href="#controle_pantilt.ControlePantilt.azGraus" title="Link permanente para esta definição">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Variável azGraus:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">(inteiro) Armazena a ultima posicao do pan-tilt em azimute</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="controle_pantilt.ControlePantilt.azimute">
+<code class="descname">azimute</code><span class="sig-paren">(</span><em>graus</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controle_pantilt.html#ControlePantilt.azimute"><span class="viewcode-link">[código fonte]</span></a><a class="headerlink" href="#controle_pantilt.ControlePantilt.azimute" title="Link permanente para esta definição">¶</a></dt>
+<dd><p>Verifica se os graus recebidos estão entre 0 e 350, compara com o valor anterior e assim determina se o comando enviado deve ser para a direita ou esquerda</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parâmetros:</th><td class="field-body"><strong>graus</strong> (<em>inteiro</em>) – valor entre 0 e 350 azimute</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="controle_pantilt.ControlePantilt.con">
+<code class="descname">con</code><em class="property"> = None</em><a class="headerlink" href="#controle_pantilt.ControlePantilt.con" title="Link permanente para esta definição">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Variável con:</th><td class="field-body">(instância) Recebe a comunicação serial iniciado pela classe principal</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="controle_pantilt.ControlePantilt.converterelevacao">
+<code class="descname">converterelevacao</code><span class="sig-paren">(</span><em>graus</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controle_pantilt.html#ControlePantilt.converterelevacao"><span class="viewcode-link">[código fonte]</span></a><a class="headerlink" href="#controle_pantilt.ControlePantilt.converterelevacao" title="Link permanente para esta definição">¶</a></dt>
+<dd><p>Converte o valor recebido para o valor esperado pelo controlador de Pan-Tilt, onde
+-35º == 0, 0º == 35, 35º == 70, ou seja todos os valores recebidos devem ser acrescidos de 35</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parâmetros:</th><td class="field-body"><strong>graus</strong> (<em>inteiro</em>) – valor entre -35 e 35 elevação</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="controle_pantilt.ControlePantilt.descer">
+<code class="descname">descer</code><span class="sig-paren">(</span><em>graus</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controle_pantilt.html#ControlePantilt.descer"><span class="viewcode-link">[código fonte]</span></a><a class="headerlink" href="#controle_pantilt.ControlePantilt.descer" title="Link permanente para esta definição">¶</a></dt>
+<dd><p>Concatena os graus com !###D* onde #### representa os graus, e envia para a controladora</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parâmetros:</th><td class="field-body"><strong>graus</strong> (<em>inteiro</em>) – valor a ser enviado para controlador</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="controle_pantilt.ControlePantilt.desligarcamera">
+<code class="descname">desligarcamera</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controle_pantilt.html#ControlePantilt.desligarcamera"><span class="viewcode-link">[código fonte]</span></a><a class="headerlink" href="#controle_pantilt.ControlePantilt.desligarcamera" title="Link permanente para esta definição">¶</a></dt>
+<dd><p>Desliga as câmeras: Comando deve ser sempre executado após as observações agendadas, ou hórarios determinado na Estação LEONA, para diminuir a degrdação das câmeras CCDs.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="controle_pantilt.ControlePantilt.direita">
+<code class="descname">direita</code><span class="sig-paren">(</span><em>graus</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controle_pantilt.html#ControlePantilt.direita"><span class="viewcode-link">[código fonte]</span></a><a class="headerlink" href="#controle_pantilt.ControlePantilt.direita" title="Link permanente para esta definição">¶</a></dt>
+<dd><p>Concatena os graus com !###R* onde #### representa os graus, e envia para a controladora</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parâmetros:</th><td class="field-body"><strong>graus</strong> (<em>inteiro</em>) – valor a ser enviado para controlador</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="controle_pantilt.ControlePantilt.elGraus">
+<code class="descname">elGraus</code><em class="property"> = None</em><a class="headerlink" href="#controle_pantilt.ControlePantilt.elGraus" title="Link permanente para esta definição">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Variável elGraus:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">(inteiro) Armazena a ultima posicao do pan-tilt em elevacao</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="controle_pantilt.ControlePantilt.elevacao">
+<code class="descname">elevacao</code><span class="sig-paren">(</span><em>graus</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controle_pantilt.html#ControlePantilt.elevacao"><span class="viewcode-link">[código fonte]</span></a><a class="headerlink" href="#controle_pantilt.ControlePantilt.elevacao" title="Link permanente para esta definição">¶</a></dt>
+<dd><p>Verifica se os graus recebidos estão entre 0 e 70, compara com o valor anterior e assim determina se o comando enviado deve ser para cima ou baixo</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parâmetros:</th><td class="field-body"><strong>graus</strong> (<em>inteiro</em>) – valor entre -35 e 35 elevação</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="controle_pantilt.ControlePantilt.esquerda">
+<code class="descname">esquerda</code><span class="sig-paren">(</span><em>graus</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controle_pantilt.html#ControlePantilt.esquerda"><span class="viewcode-link">[código fonte]</span></a><a class="headerlink" href="#controle_pantilt.ControlePantilt.esquerda" title="Link permanente para esta definição">¶</a></dt>
+<dd><p>Concatena os graus com !###L* onde #### representa os graus, e envia para a controladora</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parâmetros:</th><td class="field-body"><strong>graus</strong> (<em>inteiro</em>) – valor a ser enviado para controlador</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="controle_pantilt.ControlePantilt.formatargraus">
+<code class="descname">formatargraus</code><span class="sig-paren">(</span><em>graus</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controle_pantilt.html#ControlePantilt.formatargraus"><span class="viewcode-link">[código fonte]</span></a><a class="headerlink" href="#controle_pantilt.ControlePantilt.formatargraus" title="Link permanente para esta definição">¶</a></dt>
+<dd><p>Verifica valor informado e formata no padrão de bits</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parâmetros:</th><td class="field-body"><strong>graus</strong> (<em>inteiro</em>) – valor de azimute ou elevação selecionado pelo observador da Rede Leona</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="controle_pantilt.ControlePantilt.ligarcamera">
+<code class="descname">ligarcamera</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controle_pantilt.html#ControlePantilt.ligarcamera"><span class="viewcode-link">[código fonte]</span></a><a class="headerlink" href="#controle_pantilt.ControlePantilt.ligarcamera" title="Link permanente para esta definição">¶</a></dt>
+<dd><p>Liga as câmeras:</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="controle_pantilt.ControlePantilt.resetarazimute">
+<code class="descname">resetarazimute</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controle_pantilt.html#ControlePantilt.resetarazimute"><span class="viewcode-link">[código fonte]</span></a><a class="headerlink" href="#controle_pantilt.ControlePantilt.resetarazimute" title="Link permanente para esta definição">¶</a></dt>
+<dd><p>Envia para a controladora !350L, assim resetando azimute em 0º</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="controle_pantilt.ControlePantilt.resetarelevacao">
+<code class="descname">resetarelevacao</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controle_pantilt.html#ControlePantilt.resetarelevacao"><span class="viewcode-link">[código fonte]</span></a><a class="headerlink" href="#controle_pantilt.ControlePantilt.resetarelevacao" title="Link permanente para esta definição">¶</a></dt>
+<dd><p>Envia para a controladora !070D, assim resetando a elevação em 0º ou -35º</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="controle_pantilt.ControlePantilt.subir">
+<code class="descname">subir</code><span class="sig-paren">(</span><em>graus</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controle_pantilt.html#ControlePantilt.subir"><span class="viewcode-link">[código fonte]</span></a><a class="headerlink" href="#controle_pantilt.ControlePantilt.subir" title="Link permanente para esta definição">¶</a></dt>
+<dd><p>Concatena os graus com !###U* onde #### representa os graus, e envia para a controladora</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parâmetros:</th><td class="field-body"><strong>graus</strong> (<em>inteiro</em>) – valor a ser enviado para controlador</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Ana Laura Gonçalves da Silva e Igor Henrique Camargo.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'3.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

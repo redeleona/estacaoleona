@@ -1,0 +1,465 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>servidor_tornado_camera_3 &mdash; documentação Projeto LEONA 3.0</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Índice"
+              href="../genindex.html"/>
+        <link rel="search" title="Buscar" href="../search.html"/>
+    <link rel="top" title="documentação Projeto LEONA 3.0" href="../index.html"/>
+        <link rel="up" title="Código do módulo" href="index.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../RedeLeonaDoc.html" class="icon icon-home"> Projeto LEONA
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                3.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../Primeiros Passos.html">Primeiros Passos</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../RedeLeonaDoc.html">Projeto LEONA</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../RedeLeonaDoc.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Código do módulo</a> &raquo;</li>
+        
+      <li>servidor_tornado_camera_3</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Código fonte para servidor_tornado_camera_3</h1><div class="highlight"><pre>
+<span></span><span class="c1">#servidor_tornado_camera_3.py</span>
+<span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Igor Henrique Camargo, Ana Laura Gonçalves da Silva&#39;</span>
+<span class="n">__date__</span> <span class="o">=</span> <span class="s2">&quot;$22/08/2017 13:30:00$&quot;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;1.0&#39;</span>
+
+<span class="kn">from</span> <span class="nn">tornado</span> <span class="k">import</span> <span class="n">websocket</span><span class="p">,</span> <span class="n">web</span><span class="p">,</span> <span class="n">ioloop</span><span class="p">,</span> <span class="n">queues</span><span class="p">,</span> <span class="n">escape</span><span class="p">,</span> <span class="n">ioloop</span><span class="p">,</span> <span class="n">options</span>
+<span class="kn">import</span> <span class="nn">json</span><span class="o">,</span> <span class="nn">cv2</span><span class="o">,</span> <span class="nn">base64</span><span class="o">,</span> <span class="nn">logging</span><span class="o">,</span> <span class="nn">multiprocessing</span><span class="o">,</span> <span class="nn">time</span><span class="o">,</span> <span class="nn">os.path</span><span class="o">,</span> <span class="nn">uuid</span>
+
+<span class="c1">#LIBS LEONA</span>
+<span class="kn">import</span> <span class="nn">settings</span><span class="o">,</span><span class="nn">video_camera</span><span class="o">,</span> <span class="nn">video_camera_teste</span><span class="o">,</span> <span class="nn">settings</span><span class="o">,</span> <span class="nn">controle_pantilt</span><span class="o">,</span> <span class="nn">comunicacao_serial</span>
+
+<span class="n">config</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">Settings</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">get_config</span><span class="p">()</span>
+<span class="sd">&quot;&quot;&quot;:variável config (settings.Settings): Lê o arquivo de configuração. Setting(0). Não alterar pois é o que determina qual camera será inicializada&quot;&quot;&quot;</span>
+
+<span class="k">if</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;is_pantilt&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;True&#39;</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;:if config: Verifica se o controla do pantilt está ativo&quot;&quot;&quot;</span>
+    <span class="n">com</span> <span class="o">=</span> <span class="n">comunicacao_serial</span><span class="o">.</span><span class="n">ComunicacaoSerial</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;port_con&#39;</span><span class="p">],</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;baudrate&#39;</span><span class="p">])</span>
+    <span class="sd">&quot;&quot;&quot;:método ComunicacaoSerial(): Inicia a classe responsavel pela comunicação serial. Paramêtros: port: Porta de comunicação e baudrate: taxa de transmissão de dados&quot;&quot;&quot;</span>
+
+    <span class="n">cp</span> <span class="o">=</span> <span class="n">controle_pantilt</span><span class="o">.</span><span class="n">ControlePantilt</span><span class="p">(</span><span class="n">com</span><span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot;:variável cp:  Inicia o classe responsável pelo controle de pantilt&quot;&quot;&quot;</span>
+
+<span class="n">queue</span> <span class="o">=</span> <span class="n">multiprocessing</span><span class="o">.</span><span class="n">Queue</span><span class="p">(</span><span class="n">maxsize</span> <span class="o">=</span> <span class="mi">120</span><span class="p">)</span>
+<span class="sd">&quot;&quot;&quot;:variável queue: inicia a pilha para armazenar imagens. Paramêtro: maxsize(330)--&gt; Controla o buffer máximo de leitura da câmers, NÃO ALTERAR!, esta variável, junto a de &quot;frames&quot; presente no arquivo de configuração, garante que a sincronia do serviço.&quot;&quot;&quot;</span>
+
+<span class="k">if</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;is_test&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;True&#39;</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;constante config: (booleano) Verifica o modo de inicialização do Servidor Tornado&quot;&quot;&quot;</span>
+    <span class="n">_com</span> <span class="o">=</span> <span class="n">comunicacao_serial</span><span class="o">.</span><span class="n">ComunicacaoSerial</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;vc_port_con&#39;</span><span class="p">],</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;vc_baudrate&#39;</span><span class="p">])</span>
+    <span class="sd">&quot;&quot;&quot;variável _com: (instância):Inicializa comunicação serial&quot;&quot;&quot;</span>
+    <span class="n">vc</span> <span class="o">=</span> <span class="n">video_camera_teste</span><span class="o">.</span><span class="n">VideoCamera</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">queue</span><span class="p">,</span> <span class="n">_com</span><span class="p">,</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;vc_name_arq&#39;</span><span class="p">])</span>
+    <span class="sd">&quot;&quot;&quot;:variável vc: (instância) Inicializa leitura das câmeras&quot;&quot;&quot;</span>
+
+<span class="k">elif</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;is_test&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;False&#39;</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;constante config: (booleano) Verifica o modo de teste de ser inicializado&quot;&quot;&quot;</span>
+    <span class="n">vc</span> <span class="o">=</span> <span class="n">video_camera</span><span class="o">.</span><span class="n">VideoCamera</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">queue</span><span class="p">)</span>
+<span class="n">vc</span><span class="o">.</span><span class="n">daemon</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">vc</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+
+<span class="c1">#Desliga as câmeras e zera o pantilt quando precisa</span>
+<span class="n">control_teste</span> <span class="o">=</span> <span class="s1">&#39;0&#39;</span>
+<span class="n">control_time</span> <span class="o">=</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="SocketHandler"><a class="viewcode-back" href="../servidor_tornado_camera_3.html#servidor_tornado_camera_3.SocketHandler">[documentos]</a><span class="k">class</span> <span class="nc">SocketHandler</span><span class="p">(</span><span class="n">websocket</span><span class="o">.</span><span class="n">WebSocketHandler</span><span class="p">):</span>
+    <span class="c1">#Classe responsável pela transmissão das imagens</span>
+
+    <span class="k">global</span> <span class="n">vc</span><span class="p">,</span> <span class="n">queue</span>
+
+    <span class="n">writer</span> <span class="o">=</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="SocketHandler.check_origin"><a class="viewcode-back" href="../servidor_tornado_camera_3.html#servidor_tornado_camera_3.SocketHandler.check_origin">[documentos]</a>    <span class="k">def</span> <span class="nf">check_origin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">origin</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">True</span></div>
+    
+<div class="viewcode-block" id="SocketHandler.render"><a class="viewcode-back" href="../servidor_tornado_camera_3.html#servidor_tornado_camera_3.SocketHandler.render">[documentos]</a>    <span class="k">def</span> <span class="nf">render</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Prepara imagens para transmissão&quot;&quot;&quot;</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="n">frame</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+        <span class="c1">#TESTE de resize de imagem</span>
+        <span class="n">frame</span> <span class="o">=</span>  <span class="n">cv2</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">frame</span><span class="p">,(</span><span class="mi">320</span><span class="p">,</span><span class="mi">240</span><span class="p">))</span>
+        <span class="sd">&quot;&quot;&quot;:variável frame: (matrix) Recebe imagens da classe VideoCamera responsável pela leitura das câmeras&quot;&quot;&quot;</span>
+        <span class="n">cnt</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imencode</span><span class="p">(</span><span class="s1">&#39;.jpg&#39;</span><span class="p">,</span><span class="n">frame</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="sd">&quot;&quot;&quot;:variável cnt: (numpy array) Formata matrix para string&quot;&quot;&quot;</span> 
+        <span class="n">b64</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">cnt</span><span class="p">)</span>
+        <span class="sd">&quot;&quot;&quot;:variável b64: (base64) Formata numpy array em dado do tipo basee64&quot;&quot;&quot;</span>
+        <span class="n">cnt</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">b64</span><span class="p">)</span>
+        <span class="sd">&quot;&quot;&quot;:variável cnt: Transforma valor lido de bytes para string&quot;&quot;&quot;</span>
+        <span class="n">strcnt</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">cnt</span><span class="p">[</span><span class="mi">2</span><span class="p">:])</span>
+        <span class="sd">&quot;&quot;&quot;:variável strcnt: (string) - Retira duas primeiras letras &quot;b&#39;&quot; para estar no padrão exigido no Tornado&quot;&quot;&quot;</span>
+
+        <span class="n">image</span> <span class="o">+=</span> <span class="s2">&quot;&lt;img src=&#39;data:image/jpeg;base64,&quot;</span><span class="o">+</span> <span class="n">strcnt</span> <span class="o">+</span><span class="s2">&quot;&#39;&gt;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;:variável image: (string) - Coloca a variavel de base64 no padrão do html&quot;&quot;&quot;</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">write_message</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+            <span class="sd">&quot;&quot;&quot;função write_massage: Envia dado para a porta de Ip escolhida&quot;&quot;&quot;</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error sending message: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">err</span><span class="p">))</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Error sending message: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">err</span><span class="p">),</span> <span class="n">exc_info</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">writer</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+
+        <span class="c1">#Desliga as câmeras e zera o pantilt quando precisa</span>
+        <span class="k">global</span> <span class="n">control_teste</span><span class="p">,</span> <span class="n">control_time</span>
+
+        <span class="n">hora</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%H&quot;</span><span class="p">)</span>        
+
+        <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="n">hora</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">18</span> <span class="ow">and</span> <span class="n">control_time</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="nb">int</span><span class="p">(</span><span class="n">hora</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">18</span> <span class="ow">and</span> <span class="n">control_time</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+            <span class="n">control_time</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="k">if</span> <span class="n">control_time</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="n">hora</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">5</span>  <span class="ow">and</span> <span class="nb">int</span><span class="p">(</span><span class="n">hora</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">6</span><span class="p">:</span>
+                <span class="k">global</span> <span class="n">cp</span>
+
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Zerando pantilt</span><span class="se">\n</span><span class="s2"> Desligando câmeras&quot;</span><span class="p">)</span>                
+                <span class="n">cp</span><span class="o">.</span><span class="n">desligarcamera</span><span class="p">()</span>
+                <span class="n">cp</span><span class="o">.</span><span class="n">azimute</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="s1">&#39;0&#39;</span><span class="p">))</span>
+                <span class="n">cp</span><span class="o">.</span><span class="n">elevacao</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="s1">&#39;-35&#39;</span><span class="p">))</span>
+                <span class="n">control_time</span> <span class="o">=</span> <span class="kc">False</span></div>
+
+<div class="viewcode-block" id="SocketHandler.open"><a class="viewcode-back" href="../servidor_tornado_camera_3.html#servidor_tornado_camera_3.SocketHandler.open">[documentos]</a>    <span class="k">def</span> <span class="nf">open</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Inicia o envio de dados&quot;&quot;&quot;</span>
+        <span class="n">interval</span> <span class="o">=</span> <span class="mi">1000</span><span class="o">/</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;frames&#39;</span><span class="p">]</span>
+        <span class="sd">&quot;&quot;&quot;constante interval: (inteiro) Determina taxa de envio dos dados&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">writer</span> <span class="o">=</span> <span class="n">ioloop</span><span class="o">.</span><span class="n">PeriodicCallback</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">render</span><span class="p">,</span> <span class="n">interval</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">writer</span><span class="o">.</span><span class="n">start</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="SocketHandler.on_close"><a class="viewcode-back" href="../servidor_tornado_camera_3.html#servidor_tornado_camera_3.SocketHandler.on_close">[documentos]</a>    <span class="k">def</span> <span class="nf">on_close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Closing connection&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">writer</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span></div></div>
+
+<div class="viewcode-block" id="ControlBox"><a class="viewcode-back" href="../servidor_tornado_camera_3.html#servidor_tornado_camera_3.ControlBox">[documentos]</a><span class="k">class</span> <span class="nc">ControlBox</span><span class="p">(</span><span class="n">websocket</span><span class="o">.</span><span class="n">WebSocketHandler</span><span class="p">):</span>
+    <span class="c1">#Classe responsável por receber controle de gravação das câmeras e movimento do pantilt</span>
+
+    <span class="k">global</span> <span class="n">vc</span><span class="p">,</span><span class="n">cp</span>
+
+    <span class="c1">#PANTILT</span>
+    <span class="n">azimute</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">elevacao</span> <span class="o">=</span> <span class="o">-</span><span class="mi">35</span>
+
+    <span class="c1">#Câmeras</span>
+    <span class="n">record</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">control_record</span> <span class="o">=</span> <span class="s1">&#39;disponivel&#39;</span>
+    <span class="n">camera</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">control_camera</span> <span class="o">=</span> <span class="s1">&#39;desligada&#39;</span>
+    <span class="n">estado_estacao</span> <span class="o">=</span> <span class="s1">&#39;ONLINE&#39;</span>    
+
+    <span class="n">waiters</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="n">cache</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">cache_size</span> <span class="o">=</span> <span class="mi">200</span>
+
+<div class="viewcode-block" id="ControlBox.check_origin"><a class="viewcode-back" href="../servidor_tornado_camera_3.html#servidor_tornado_camera_3.ControlBox.check_origin">[documentos]</a>    <span class="k">def</span> <span class="nf">check_origin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">origin</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">True</span></div>
+    
+<div class="viewcode-block" id="ControlBox.get_compression_options"><a class="viewcode-back" href="../servidor_tornado_camera_3.html#servidor_tornado_camera_3.ControlBox.get_compression_options">[documentos]</a>    <span class="k">def</span> <span class="nf">get_compression_options</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{}</span></div>
+
+<div class="viewcode-block" id="ControlBox.open"><a class="viewcode-back" href="../servidor_tornado_camera_3.html#servidor_tornado_camera_3.ControlBox.open">[documentos]</a>    <span class="k">def</span> <span class="nf">open</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Cria .json inicial para atualizar status de controle e gravação para o servidor&quot;&quot;&quot;</span>
+
+        <span class="n">ControlBox</span><span class="o">.</span><span class="n">waiters</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+        <span class="n">chat</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">()),</span>
+            <span class="s2">&quot;azimute&quot;</span><span class="p">:</span> <span class="n">ControlBox</span><span class="o">.</span><span class="n">azimute</span><span class="p">,</span>
+            <span class="s2">&quot;elevacao&quot;</span><span class="p">:</span> <span class="n">ControlBox</span><span class="o">.</span><span class="n">elevacao</span><span class="p">,</span>
+            <span class="s2">&quot;gravar&quot;</span><span class="p">:</span> <span class="n">ControlBox</span><span class="o">.</span><span class="n">control_record</span><span class="p">,</span>
+            <span class="s2">&quot;camera&quot;</span><span class="p">:</span> <span class="n">ControlBox</span><span class="o">.</span><span class="n">control_camera</span><span class="p">,</span>
+            <span class="s2">&quot;estadoEstacao&quot;</span><span class="p">:</span> <span class="n">ControlBox</span><span class="o">.</span><span class="n">estado_estacao</span><span class="p">,</span>
+            <span class="p">}</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">write_message</span><span class="p">(</span><span class="n">chat</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ControlBox.on_close"><a class="viewcode-back" href="../servidor_tornado_camera_3.html#servidor_tornado_camera_3.ControlBox.on_close">[documentos]</a>    <span class="k">def</span> <span class="nf">on_close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">ControlBox</span><span class="o">.</span><span class="n">waiters</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ControlBox.update_cache"><a class="viewcode-back" href="../servidor_tornado_camera_3.html#servidor_tornado_camera_3.ControlBox.update_cache">[documentos]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">update_cache</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">chat</span><span class="p">):</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">cache</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">chat</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">cache</span><span class="p">)</span> <span class="o">&gt;</span> <span class="bp">cls</span><span class="o">.</span><span class="n">cache_size</span><span class="p">:</span>
+            <span class="bp">cls</span><span class="o">.</span><span class="n">cache</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">cache</span><span class="p">[</span><span class="o">-</span><span class="bp">cls</span><span class="o">.</span><span class="n">cache_size</span><span class="p">:]</span></div>
+
+<div class="viewcode-block" id="ControlBox.send_updates"><a class="viewcode-back" href="../servidor_tornado_camera_3.html#servidor_tornado_camera_3.ControlBox.send_updates">[documentos]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">send_updates</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">chat</span><span class="p">):</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;sending message to </span><span class="si">%d</span><span class="s2"> waiters&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">waiters</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">waiter</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">waiters</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">waiter</span><span class="o">.</span><span class="n">write_message</span><span class="p">(</span><span class="n">chat</span><span class="p">)</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Error sending message&quot;</span><span class="p">,</span> <span class="n">exc_info</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ControlBox.on_message"><a class="viewcode-back" href="../servidor_tornado_camera_3.html#servidor_tornado_camera_3.ControlBox.on_message">[documentos]</a>    <span class="k">def</span> <span class="nf">on_message</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;got message </span><span class="si">%r</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+        <span class="n">parsed</span> <span class="o">=</span> <span class="n">escape</span><span class="o">.</span><span class="n">json_decode</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+        <span class="sd">&quot;&quot;&quot;variável parsed: lê a mensagem de controle enviada pelas estações&quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="s1">&#39;azimute&#39;</span> <span class="ow">in</span> <span class="n">parsed</span><span class="p">:</span><span class="c1">#Verifica se existe comando para mudança de azimute</span>
+            <span class="n">ControlBox</span><span class="o">.</span><span class="n">azimute</span> <span class="o">=</span> <span class="n">parsed</span><span class="p">[</span><span class="s1">&#39;azimute&#39;</span><span class="p">]</span>
+            <span class="n">cp</span><span class="o">.</span><span class="n">azimute</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">ControlBox</span><span class="o">.</span><span class="n">azimute</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="s1">&#39;elevacao&#39;</span> <span class="ow">in</span> <span class="n">parsed</span><span class="p">:</span><span class="c1">#Verifica se existe comando para mudança de elevacao</span>
+            <span class="n">ControlBox</span><span class="o">.</span><span class="n">elevacao</span> <span class="o">=</span> <span class="n">parsed</span><span class="p">[</span><span class="s1">&#39;elevacao&#39;</span><span class="p">]</span>
+            <span class="n">el</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">ControlBox</span><span class="o">.</span><span class="n">elevacao</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">el</span><span class="p">)</span>
+            <span class="n">cp</span><span class="o">.</span><span class="n">elevacao</span><span class="p">(</span><span class="n">el</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="s1">&#39;gravar&#39;</span> <span class="ow">in</span> <span class="n">parsed</span><span class="p">:</span><span class="c1">#Verifica se existe comando para iniciar/parar gravação</span>
+            <span class="n">ControlBox</span><span class="o">.</span><span class="n">record</span> <span class="o">=</span> <span class="n">parsed</span><span class="p">[</span><span class="s1">&#39;gravar&#39;</span><span class="p">]</span>
+
+            <span class="k">if</span> <span class="n">ControlBox</span><span class="o">.</span><span class="n">record</span> <span class="o">==</span> <span class="s1">&#39;True&#39;</span><span class="p">:</span> <span class="c1"># Inicia gravação</span>
+                <span class="n">vc</span><span class="o">.</span><span class="n">start_record</span><span class="p">()</span>
+                <span class="n">ControlBox</span><span class="o">.</span><span class="n">control_record</span> <span class="o">=</span> <span class="s1">&#39;gravando&#39;</span> <span class="c1">#Variável de controle para o servidor</span>
+
+            <span class="k">elif</span> <span class="n">ControlBox</span><span class="o">.</span><span class="n">record</span> <span class="o">==</span> <span class="s1">&#39;False&#39;</span> <span class="ow">and</span>  <span class="n">ControlBox</span><span class="o">.</span><span class="n">control_record</span> <span class="o">==</span> <span class="s1">&#39;gravando&#39;</span><span class="p">:</span> <span class="c1"># Finaliza gravação</span>
+                <span class="n">vc</span><span class="o">.</span><span class="n">stop_record</span><span class="p">()</span>            
+                <span class="n">ControlBox</span><span class="o">.</span><span class="n">control_record</span> <span class="o">=</span> <span class="s1">&#39;disponivel&#39;</span><span class="c1">#Variável de controle para o servidor </span>
+
+        <span class="k">if</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;is_pantilt&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;True&#39;</span><span class="p">:</span><span class="c1">#(booleano): Verifica se o controla do pantilt está ativo</span>
+            <span class="k">if</span> <span class="s1">&#39;camera&#39;</span> <span class="ow">in</span> <span class="n">parsed</span><span class="p">:</span><span class="c1">#Verifica se existe comando para Ligar/Desligar câmeras</span>
+                <span class="n">ControlBox</span><span class="o">.</span><span class="n">camera</span> <span class="o">=</span> <span class="n">parsed</span><span class="p">[</span><span class="s1">&#39;camera&#39;</span><span class="p">]</span>
+
+                <span class="k">if</span> <span class="n">ControlBox</span><span class="o">.</span><span class="n">camera</span> <span class="o">==</span> <span class="s1">&#39;True&#39;</span><span class="p">:</span>
+                    <span class="n">cp</span><span class="o">.</span><span class="n">ligarcamera</span><span class="p">()</span>
+                    <span class="n">ControlBox</span><span class="o">.</span><span class="n">control_camera</span> <span class="o">=</span> <span class="s1">&#39;ligada&#39;</span>
+                <span class="k">elif</span> <span class="n">ControlBox</span><span class="o">.</span><span class="n">camera</span> <span class="o">==</span> <span class="s1">&#39;False&#39;</span><span class="p">:</span>
+                    <span class="n">cp</span><span class="o">.</span><span class="n">desligarcamera</span><span class="p">()</span>
+                    <span class="n">ControlBox</span><span class="o">.</span><span class="n">control_camera</span> <span class="o">=</span> <span class="s1">&#39;desligada&#39;</span>
+
+        <span class="n">chat</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">()),</span>
+            <span class="s2">&quot;azimute&quot;</span><span class="p">:</span> <span class="n">ControlBox</span><span class="o">.</span><span class="n">azimute</span><span class="p">,</span>
+            <span class="s2">&quot;elevacao&quot;</span><span class="p">:</span> <span class="n">ControlBox</span><span class="o">.</span><span class="n">elevacao</span><span class="p">,</span>
+            <span class="s2">&quot;gravar&quot;</span><span class="p">:</span> <span class="n">ControlBox</span><span class="o">.</span><span class="n">control_record</span><span class="p">,</span>
+            <span class="s2">&quot;camera&quot;</span><span class="p">:</span> <span class="n">ControlBox</span><span class="o">.</span><span class="n">control_camera</span><span class="p">,</span>
+            <span class="s2">&quot;estadoEstacao&quot;</span><span class="p">:</span> <span class="n">ControlBox</span><span class="o">.</span><span class="n">estado_estacao</span><span class="p">,</span>
+            <span class="p">}</span>
+        <span class="sd">&quot;&quot;&quot;variavel chat: (.json) reescreve .json para atualizar status de controle e gravação para o servidor&quot;&quot;&quot;</span>
+
+        <span class="n">ControlBox</span><span class="o">.</span><span class="n">update_cache</span><span class="p">(</span><span class="n">chat</span><span class="p">)</span>
+        <span class="n">ControlBox</span><span class="o">.</span><span class="n">send_updates</span><span class="p">(</span><span class="n">chat</span><span class="p">)</span></div></div>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">web</span><span class="o">.</span><span class="n">Application</span><span class="p">([</span>
+    <span class="p">(</span><span class="sa">r</span><span class="s1">&#39;/ws&#39;</span><span class="p">,</span> <span class="n">SocketHandler</span><span class="p">),</span>
+    <span class="p">(</span><span class="sa">r</span><span class="s1">&#39;/controlbox&#39;</span><span class="p">,</span> <span class="n">ControlBox</span><span class="p">),</span>
+<span class="p">])</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;[DEBUG] Video Capture Camera 3: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">vc</span><span class="p">))</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;***********************************************&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;*                                             *&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;*            NÃO FECHE ESTA JANELA!           *&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;*                                             *&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;***********************************************&#39;</span><span class="p">)</span>
+
+<span class="c1">##    if config[&#39;is_pantilt&#39;] == &#39;True&#39;:#(booleano): Verifica se o controla do pantilt está ativo</span>
+<span class="c1">##        time.sleep(3)# Tempo para esperar inicialização do hardware</span>
+<span class="c1">##        cp.resetarazimute()#Coloca o pantilt em 0º grau na horizontal</span>
+<span class="c1">##        cp.resetarelevacao()#Coloca o pantilt em -35º graus na vertical</span>
+
+    <span class="n">app</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;port_listen&#39;</span><span class="p">])</span><span class="c1">#(string) - Recebe a porta do IP para enviar dados</span>
+    <span class="n">ioloop</span><span class="o">.</span><span class="n">IOLoop</span><span class="o">.</span><span class="n">current</span><span class="p">()</span><span class="o">.</span><span class="n">start</span><span class="p">()</span> <span class="c1">#Inicia o Servidor Tornado</span>
+
+</pre></div>
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Ana Laura Gonçalves da Silva e Igor Henrique Camargo.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'3.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

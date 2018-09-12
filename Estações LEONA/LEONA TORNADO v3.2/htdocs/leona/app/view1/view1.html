@@ -1,0 +1,30 @@
+<div class="container">
+    <div id="main"></div>
+    <div id="main1"></div>
+</div>
+<div class="container">
+    <div class="row">
+        <button class="btn btn-default col-xs-offset-1 col-xs-1" ng-click="vm.up(1)"> <span class="glyphicon glyphicon-menu-up"></span> </button>
+    </div>
+    <div class="row">
+        <button class="btn btn-default col-xs-1" ng-click="vm.left(1)"> <span class="glyphicon glyphicon-menu-left"></span> </button>
+        <span class="col-xs-1"></span>
+        <button class="btn btn-default col-xs-1" ng-click="vm.right(1)"> <span class="glyphicon glyphicon-menu-right"></span> </button>
+    </div>
+    <div class="row">
+        <button class="btn btn-default col-xs-offset-1 col-xs-1" ng-click="vm.down(1)"> <span class="glyphicon glyphicon-menu-down"></span> </button>
+    </div>
+    <input class="form-group-sm" type="checkbox" name="ativarKeyboard" ng-model="vm.ativo"> Ativar controle pelo teclado
+</div>
+
+<p>Azimute: <input type="number" ng-model="az"><button ng-click="vm.azimute(az)">Mover</button></p>
+<p>Elevação: <input type="number" ng-model="el"><button ng-click="vm.elevacao(el)">Mover</button></p>
+<p>Azimute: {{ az }} </p>
+<p>Elevação: {{ el }} </p>
+
+<button ng-click="vm.rec('True')"> <span class="glyphicon glyphicon-facetime-video"></span> </button>
+<button ng-click="vm.rec('False')"> <span class="glyphicon .glyphicon glyphicon-stop"></span> </button>
+<p>Status Gravação: {{control_record}} </p>
+<button ng-click="vm.ctz_camera('True')"> <span class="glyphicon .glyphicon glyphicon-off"></span> </button>
+<button ng-click="vm.ctz_camera('False')"> <span class="glyphicon .glyphicon glyphicon-stop"></span> </button>
+<p>Status da câmera: {{control_camera}} </p>

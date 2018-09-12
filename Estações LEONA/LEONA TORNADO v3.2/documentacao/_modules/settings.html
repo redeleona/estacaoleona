@@ -1,0 +1,271 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>settings &mdash; documentação Projeto LEONA 3.0</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Índice"
+              href="../genindex.html"/>
+        <link rel="search" title="Buscar" href="../search.html"/>
+    <link rel="top" title="documentação Projeto LEONA 3.0" href="../index.html"/>
+        <link rel="up" title="Código do módulo" href="index.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../RedeLeonaDoc.html" class="icon icon-home"> Projeto LEONA
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                3.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../Primeiros Passos.html">Primeiros Passos</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../RedeLeonaDoc.html">Projeto LEONA</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../RedeLeonaDoc.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Código do módulo</a> &raquo;</li>
+        
+      <li>settings</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Código fonte para settings</h1><div class="highlight"><pre>
+<span></span><span class="c1">#settings.py</span>
+
+<span class="kn">import</span> <span class="nn">json</span><span class="o">,</span> <span class="nn">os</span>
+
+<div class="viewcode-block" id="Settings"><a class="viewcode-back" href="../settings.html#settings.Settings">[documentos]</a><span class="k">class</span> <span class="nc">Settings</span><span class="p">():</span>
+    <span class="c1">#Classe para iniciar as configuração dos Servidores&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :type n: inteiro</span>
+<span class="sd">        :param n: Posição no array de câmeras no arquivo settings.json</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="n">jsonFile</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span><span class="s1">&#39;settings.json&#39;</span><span class="p">)</span>
+        <span class="sd">&quot;&quot;&quot;:variável jsonFile: procura o arquivo .json&quot;&quot;&quot;</span>
+        <span class="n">arq_settings</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">jsonFile</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+        <span class="sd">&quot;&quot;&quot;:variável arq_settings(): Lê Arquivo .json&quot;&quot;&quot;</span>        
+        <span class="n">json_settings</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">arq_settings</span><span class="p">)</span>
+        <span class="sd">&quot;&quot;&quot;:variável json_settings(): Lê arq_settings e transforma em object.json&quot;&quot;&quot;</span>
+        <span class="n">camera</span> <span class="o">=</span> <span class="n">json_settings</span><span class="p">[</span><span class="s1">&#39;cameras&#39;</span><span class="p">][</span><span class="n">n</span><span class="p">]</span>
+        <span class="sd">&quot;&quot;&quot;:variável camera(json.array): Recebe configuração de cada servidor&quot;&quot;&quot;</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="sd">&quot;&quot;&quot;:contante config: Lê as configuração de Porta serial de controle de teste de câmeras e do pantilt, a taxa de aquisição de dados e se a versão de teste deve ser ativada&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;is_pantilt&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">camera</span><span class="p">[</span><span class="s1">&#39;is_pantilt&#39;</span><span class="p">]</span>
+        <span class="sd">&quot;&quot;&quot;:contante config[&#39;is_pantilt&#39;]: Verifica se o controla de pantilt está ativo&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;port_con&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">camera</span><span class="p">[</span><span class="s1">&#39;controle_pantilt&#39;</span><span class="p">][</span><span class="s1">&#39;comunicacao_serial&#39;</span><span class="p">][</span><span class="s1">&#39;port_com&#39;</span><span class="p">]</span>
+        <span class="sd">&quot;&quot;&quot;:constante self.config[&#39;port_con&#39;]: (string) Lê a porta escolhida para comunicação serial com o pantilt&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;baudrate&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">camera</span><span class="p">[</span><span class="s1">&#39;controle_pantilt&#39;</span><span class="p">][</span><span class="s1">&#39;comunicacao_serial&#39;</span><span class="p">][</span><span class="s1">&#39;baudrate&#39;</span><span class="p">]</span>
+        <span class="sd">&quot;&quot;&quot;:constante self.config[&#39;baudrate&#39;]: (string) Determina a taxa de leitura de dados da comunicação serial com o pantilt&quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;frames&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">camera</span><span class="p">[</span><span class="s1">&#39;frames&#39;</span><span class="p">]</span>
+        <span class="sd">&quot;&quot;&quot;:constante self.config[]: (inteiro) Taxa de transmissão do servidor&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;port_listen&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">camera</span><span class="p">[</span><span class="s1">&#39;port_listen&#39;</span><span class="p">]</span>
+        <span class="sd">&quot;&quot;&quot;:constante self.config[]: (string) Porta de comunicação do servidor&quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;is_test&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">camera</span><span class="p">[</span><span class="s1">&#39;is_test&#39;</span><span class="p">]</span>
+        <span class="sd">&quot;&quot;&quot;:constante self.config[]: (booleano) Indica se a versão de testes deve ser inicializada&quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;vc_port_con&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">camera</span><span class="p">[</span><span class="s1">&#39;test&#39;</span><span class="p">][</span><span class="s1">&#39;video_camera&#39;</span><span class="p">][</span><span class="s1">&#39;port_com&#39;</span><span class="p">]</span>
+        <span class="sd">&quot;&quot;&quot;:constante self.config[]: (string) Determina a porta de comunicação serial para o teste das câmeras&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;vc_baudrate&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">camera</span><span class="p">[</span><span class="s1">&#39;test&#39;</span><span class="p">][</span><span class="s1">&#39;video_camera&#39;</span><span class="p">][</span><span class="s1">&#39;baudrate&#39;</span><span class="p">]</span>
+        <span class="sd">&quot;&quot;&quot;:constante self.config[]: (string) Determina a taxa de leitura de dados da comunicação serial nesta porta&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;vc_name_arq&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">camera</span><span class="p">[</span><span class="s1">&#39;test&#39;</span><span class="p">][</span><span class="s1">&#39;video_camera&#39;</span><span class="p">][</span><span class="s1">&#39;name_arq&#39;</span><span class="p">]</span>
+        <span class="sd">&quot;&quot;&quot;self.config[]: (string) Nome do arquivo gerado no teste de gravação da(s) câmera(s)&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Settings.get_config"><a class="viewcode-back" href="../settings.html#settings.Settings.get_config">[documentos]</a>    <span class="k">def</span> <span class="nf">get_config</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Retorna as configurações lidas do arquvo settings.json&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span></div></div>
+</pre></div>
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Ana Laura Gonçalves da Silva e Igor Henrique Camargo.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'3.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

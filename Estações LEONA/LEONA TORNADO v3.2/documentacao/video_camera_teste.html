@@ -1,0 +1,381 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>video_camera_teste &mdash; documentação Projeto LEONA 3.0</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Índice"
+              href="genindex.html"/>
+        <link rel="search" title="Buscar" href="search.html"/>
+    <link rel="top" title="documentação Projeto LEONA 3.0" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="RedeLeonaDoc.html" class="icon icon-home"> Projeto LEONA
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                3.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="Primeiros Passos.html">Primeiros Passos</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="RedeLeonaDoc.html">Projeto LEONA</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="RedeLeonaDoc.html">Docs</a> &raquo;</li>
+        
+      <li>video_camera_teste</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/video_camera_teste.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="video-camera-teste">
+<h1>video_camera_teste<a class="headerlink" href="#video-camera-teste" title="Link permanente para este título">¶</a></h1>
+<blockquote>
+<div><blockquote>
+<div>Classe de Teste de gravação de frames e transmissão dos dados</div></blockquote>
+<p>Estende threading.Thread responsável por ler uma imagem da placa de captura colocando a mesma em uma multiprocessing.Queue</p>
+<blockquote>
+<div><p>Debug</p>
+<p>Osciloscopio</p>
+<blockquote>
+<div>Permite o monitoramento do loop com osciloscopio
+para o mesmo é necessário que no arquivo de configuração
+a variável TEST_OSCILOSCOPIO esteja como True e que passe
+como parametro um objeto da classe comunicacaoserial</div></blockquote>
+<p>Arquivo txt</p>
+<blockquote>
+<div>Gera um arquivo txt contendo o timestamp do instante de cada loop</div></blockquote>
+</div></blockquote>
+</div></blockquote>
+<span class="target" id="module-video_camera_teste"></span><dl class="class">
+<dt id="video_camera_teste.VideoCamera">
+<em class="property">class </em><code class="descclassname">video_camera_teste.</code><code class="descname">VideoCamera</code><span class="sig-paren">(</span><em>path=0</em>, <em>queue=None</em>, <em>com=None</em>, <em>arquivo=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/video_camera_teste.html#VideoCamera"><span class="viewcode-link">[código fonte]</span></a><a class="headerlink" href="#video_camera_teste.VideoCamera" title="Link permanente para esta definição">¶</a></dt>
+<dd><p>Base: <code class="xref py py-class docutils literal"><span class="pre">threading.Thread</span></code></p>
+<p>Inicia a câmera</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parâmetros:</th><td class="field-body"><ul class="first last simple">
+<li><strong>path</strong> (<em>String</em>) – recebe caminho de leitura da câmera</li>
+<li><strong>queue</strong> (<em>multiprocessing.Queue</em>) – array reponsável por guardar os frames para que outro processo possa ler</li>
+<li><strong>com</strong> (<em>comunicacaoserial.ComunicacaoSerial</em>) – recebe a com reponsável pelo arduino que recebera o comando para DEBUG</li>
+<li><strong>arquivo</strong> (<em>String</em>) – Nome do arquivo gerado para DEBUG dos tempos de aquisição</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="video_camera_teste.VideoCamera.arquivo">
+<code class="descname">arquivo</code><em class="property"> = None</em><a class="headerlink" href="#video_camera_teste.VideoCamera.arquivo" title="Link permanente para esta definição">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Variável arquivo:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">(String) Caminho e/ou nome do arquivo</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="video_camera_teste.VideoCamera.com">
+<code class="descname">com</code><em class="property"> = None</em><a class="headerlink" href="#video_camera_teste.VideoCamera.com" title="Link permanente para esta definição">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Variável com:</th><td class="field-body">(ComunicacaoSerial) Instância de ComunicacaoSerial</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="video_camera_teste.VideoCamera.out">
+<code class="descname">out</code><em class="property"> = None</em><a class="headerlink" href="#video_camera_teste.VideoCamera.out" title="Link permanente para esta definição">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Variável out:</th><td class="field-body">(cv2.VideoWriter) Instância de VideoWriter</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="video_camera_teste.VideoCamera.queue">
+<code class="descname">queue</code><em class="property"> = None</em><a class="headerlink" href="#video_camera_teste.VideoCamera.queue" title="Link permanente para esta definição">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Variável queue:</th><td class="field-body">(multiprocessing.Queue) Instância de Queue</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="video_camera_teste.VideoCamera.recorded">
+<code class="descname">recorded</code><em class="property"> = None</em><a class="headerlink" href="#video_camera_teste.VideoCamera.recorded" title="Link permanente para esta definição">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Variável recorded:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">(boolean) Controla inicialização e finalização da gravação</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="video_camera_teste.VideoCamera.run">
+<code class="descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/video_camera_teste.html#VideoCamera.run"><span class="viewcode-link">[código fonte]</span></a><a class="headerlink" href="#video_camera_teste.VideoCamera.run" title="Link permanente para esta definição">¶</a></dt>
+<dd><p>Métodod executado pela Thread</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="video_camera_teste.VideoCamera.start_record">
+<code class="descname">start_record</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/video_camera_teste.html#VideoCamera.start_record"><span class="viewcode-link">[código fonte]</span></a><a class="headerlink" href="#video_camera_teste.VideoCamera.start_record" title="Link permanente para esta definição">¶</a></dt>
+<dd><p>Inicia a gravação em disco das imagens capturadas pela câmera</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="video_camera_teste.VideoCamera.stop">
+<code class="descname">stop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/video_camera_teste.html#VideoCamera.stop"><span class="viewcode-link">[código fonte]</span></a><a class="headerlink" href="#video_camera_teste.VideoCamera.stop" title="Link permanente para esta definição">¶</a></dt>
+<dd><p>Finaliza a leitura da camera</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="video_camera_teste.VideoCamera.stop_record">
+<code class="descname">stop_record</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/video_camera_teste.html#VideoCamera.stop_record"><span class="viewcode-link">[código fonte]</span></a><a class="headerlink" href="#video_camera_teste.VideoCamera.stop_record" title="Link permanente para esta definição">¶</a></dt>
+<dd><p>Finaliza a gravação em disco das imagens capturadas pela câmera</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="video_camera_teste.VideoCamera.stopped">
+<code class="descname">stopped</code><em class="property"> = None</em><a class="headerlink" href="#video_camera_teste.VideoCamera.stopped" title="Link permanente para esta definição">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Variável stopped:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">(boolean) Controla finalização da aquisição de imagem</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="video_camera_teste.VideoCamera.stream">
+<code class="descname">stream</code><em class="property"> = None</em><a class="headerlink" href="#video_camera_teste.VideoCamera.stream" title="Link permanente para esta definição">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Variável stream (cv2.VideoCapture):</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">Instância de VideoCapture</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Ana Laura Gonçalves da Silva e Igor Henrique Camargo.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'3.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

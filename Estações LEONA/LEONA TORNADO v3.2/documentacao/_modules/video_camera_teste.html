@@ -1,0 +1,371 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>video_camera_teste &mdash; documentação Projeto LEONA 3.0</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Índice"
+              href="../genindex.html"/>
+        <link rel="search" title="Buscar" href="../search.html"/>
+    <link rel="top" title="documentação Projeto LEONA 3.0" href="../index.html"/>
+        <link rel="up" title="Código do módulo" href="index.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../RedeLeonaDoc.html" class="icon icon-home"> Projeto LEONA
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                3.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../Primeiros Passos.html">Primeiros Passos</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../RedeLeonaDoc.html">Projeto LEONA</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../RedeLeonaDoc.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Código do módulo</a> &raquo;</li>
+        
+      <li>video_camera_teste</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Código fonte para video_camera_teste</h1><div class="highlight"><pre>
+<span></span>  <span class="c1">#video_camera.py</span>
+<span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Igor Henrique Camargo, Ana Laura Gonçalves da Silva&#39;</span>
+<span class="n">__date__</span> <span class="o">=</span> <span class="s2">&quot;$22/08/2017 13:30:00$&quot;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;1.0&#39;</span>
+
+<span class="kn">import</span> <span class="nn">cv2</span><span class="o">,</span> <span class="nn">numpy</span><span class="o">,</span> <span class="nn">time</span><span class="o">,</span> <span class="nn">threading</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="k">import</span> <span class="n">datetime</span>
+<span class="c1">#LEONA LIBS</span>
+<span class="kn">from</span> <span class="nn">geraTempos</span> <span class="k">import</span> <span class="n">GeraTempos</span>
+
+<div class="viewcode-block" id="VideoCamera"><a class="viewcode-back" href="../video_camera_teste.html#video_camera_teste.VideoCamera">[documentos]</a><span class="k">class</span> <span class="nc">VideoCamera</span><span class="p">(</span><span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">):</span>
+<span class="c1">##    &quot;&quot;&quot; Classe de Teste de gravação de frames e transmissão dos dados</span>
+<span class="c1">##</span>
+<span class="c1">##    Estende threading.Thread responsável por ler uma imagem da placa de captura colocando a mesma em uma multiprocessing.Queue</span>
+<span class="c1">##    </span>
+<span class="c1">##    Debug</span>
+<span class="c1">##    </span>
+<span class="c1">##        Osciloscopio</span>
+<span class="c1">##        </span>
+<span class="c1">##            Permite o monitoramento do loop com osciloscopio</span>
+<span class="c1">##            para o mesmo é necessário que no arquivo de configuração</span>
+<span class="c1">##            a variável TEST_OSCILOSCOPIO esteja como True e que passe</span>
+<span class="c1">##            como parametro um objeto da classe comunicacaoserial</span>
+<span class="c1">##</span>
+<span class="c1">##        Arquivo txt</span>
+<span class="c1">##</span>
+<span class="c1">##            Gera um arquivo txt contendo o timestamp do instante de cada loop</span>
+<span class="c1">##    </span>
+<span class="c1">##    &quot;&quot;&quot;</span>
+    
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">queue</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">com</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">arquivo</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Inicia a câmera</span>
+
+<span class="sd">        :type path: String</span>
+<span class="sd">	:param path: recebe caminho de leitura da câmera</span>
+
+<span class="sd">	:type queue: multiprocessing.Queue</span>
+<span class="sd">	:param queue: array reponsável por guardar os frames para que outro processo possa ler</span>
+
+<span class="sd">	:type com: comunicacaoserial.ComunicacaoSerial</span>
+<span class="sd">	:param com: recebe a com reponsável pelo arduino que recebera o comando para DEBUG</span>
+
+<span class="sd">	:type arquivo: String</span>
+<span class="sd">	:param arquivo: Nome do arquivo gerado para DEBUG dos tempos de aquisição</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="c1"># Inicia thread passando como parâmetro essa instâcia</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">stream</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">VideoCapture</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="c1"># Cria uma nova instancia cv2.VideoCapture</span>
+        <span class="sd">&quot;&quot;&quot;:variável stream (cv2.VideoCapture): Instância de VideoCapture&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+        <span class="sd">&quot;&quot;&quot;:variável stream.release: (cv2.VideoCapture) Limpa a memória disponivel para a leitura da câmera. Necessário para a iniciação correta das câmeras.&quot;&quot;&quot;</span>        
+        <span class="bp">self</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+        <span class="sd">&quot;&quot;&quot;:variável stream.open: (cv2.VideoCapture) re-instância de VideoCapture&quot;&quot;&quot;</span>
+        
+        <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">grabbed</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">frame</span><span class="p">)</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+        <span class="sd">&quot;&quot;&quot;:variável frame: Lê imagens da câmera&quot;&quot;&quot;</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">stopped</span> <span class="o">=</span> <span class="kc">False</span> <span class="c1">#(booleano) - Controla a finalização da gravação</span>
+        <span class="sd">&quot;&quot;&quot;:variável stopped: (boolean) Controla finalização da aquisição de imagem&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">recorded</span> <span class="o">=</span> <span class="kc">False</span> <span class="c1">#(booleano) - Controla a inicialização da gravação</span>
+        <span class="sd">&quot;&quot;&quot;:variável recorded: (boolean) Controla inicialização e finalização da gravação&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">queue</span> <span class="o">=</span> <span class="n">queue</span> <span class="c1">#(intância) - buffer de imagens</span>
+        <span class="sd">&quot;&quot;&quot;:variável queue: (multiprocessing.Queue) Instância de Queue&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">com</span> <span class="o">=</span> <span class="n">com</span> <span class="c1">#(instância) - comunicação serial</span>
+        <span class="sd">&quot;&quot;&quot;:variável com: (ComunicacaoSerial) Instância de ComunicacaoSerial&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">arquivo</span> <span class="o">=</span> <span class="n">arquivo</span> <span class="c1">#(String) - caminho + nome do arquivo</span>
+        <span class="sd">&quot;&quot;&quot;:variável arquivo: (String) Caminho e/ou nome do arquivo&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out</span> <span class="o">=</span>  <span class="kc">None</span>
+        <span class="sd">&quot;&quot;&quot;:variável out: (cv2.VideoWriter) Instância de VideoWriter&quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">lista</span> <span class="o">=</span> <span class="n">lista</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gr</span> <span class="o">=</span> <span class="n">GeraTempos</span><span class="p">()</span>
+        
+
+    <span class="k">def</span> <span class="nf">__del__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Finaliza Câmera&quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+        <span class="sd">&quot;&quot;&quot;:método stream.release(): Destroi instância de VideoCapture&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="VideoCamera.run"><a class="viewcode-back" href="../video_camera_teste.html#video_camera_teste.VideoCamera.run">[documentos]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Métodod executado pela Thread&quot;&quot;&quot;</span>
+
+        <span class="n">tcurrent</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="sd">&quot;&quot;&quot;:variável tcurrent: (time.time) Tempo atual da aquisição&quot;&quot;&quot;</span>
+        <span class="n">texec</span> <span class="o">=</span> <span class="n">tcurrent</span> <span class="o">+</span> <span class="mf">0.030</span>
+        <span class="sd">&quot;&quot;&quot;:variável texec: (time.time) Tempo total de execução do loop&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">queue</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">com</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">arquivo</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="n">osc</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">arquivo</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">stopped</span><span class="p">:</span>
+                <span class="k">break</span>
+            
+            <span class="n">tcurrent</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+            
+            <span class="k">if</span> <span class="n">osc</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">com</span><span class="o">.</span><span class="n">enviar</span><span class="p">(</span><span class="s1">&#39;1&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">arquivo</span><span class="p">:</span>
+              <span class="bp">self</span><span class="o">.</span><span class="n">lista</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">())</span>  
+
+            <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">grabbed</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">frame</span><span class="p">)</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">recorded</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">frame</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">queue</span><span class="o">.</span><span class="n">full</span><span class="p">():</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">queue</span><span class="o">.</span><span class="n">put_nowait</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">frame</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">texec</span><span class="p">:</span>
+                <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">texec</span> <span class="o">-</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">())</span></div>
+
+
+<div class="viewcode-block" id="VideoCamera.start_record"><a class="viewcode-back" href="../video_camera_teste.html#video_camera_teste.VideoCamera.start_record">[documentos]</a>    <span class="k">def</span> <span class="nf">start_record</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Inicia a gravação em disco das imagens capturadas pela câmera&quot;&quot;&quot;</span>
+        <span class="n">fourcc</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">VideoWriter_fourcc</span><span class="p">(</span><span class="o">*</span><span class="s1">&#39;XVID&#39;</span><span class="p">)</span><span class="c1">#(objeto) - Responsável pelo codec de vídeo utilizado na gravação</span>
+        <span class="sd">&quot;&quot;&quot;:variável fourcc: (cv2.VideoWriter_fourcc) Responsável pelo codec de vídeo utilizado na gravação&quot;&quot;&quot;</span>
+        <span class="n">video_name</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%d</span><span class="s2">-%m-%Y %H %M %S&quot;</span><span class="p">)</span><span class="c1">#(string) - Variável responsável por receber a data de inicio da gravação.</span>
+        <span class="sd">&quot;&quot;&quot;:variável video_name: (time.strftime) Variável responsável por receber a data de inicio da gravação&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">VideoWriter</span><span class="p">(</span><span class="s1">&#39;videos/&#39;</span><span class="o">+</span> <span class="n">video_name</span> <span class="o">+</span> <span class="s1">&#39;.avi&#39;</span><span class="p">,</span><span class="n">fourcc</span><span class="p">,</span> <span class="mf">30.0</span><span class="p">,</span> <span class="p">(</span><span class="mi">640</span><span class="p">,</span><span class="mi">480</span><span class="p">))</span><span class="c1">#(objeto) - Determina respectivamente: nome, formato, codec, taxa de frames e tamanho, e codec do arquivo de vídeo.</span>
+        <span class="sd">&quot;&quot;&quot;:variável out: Inicia o arquivo de gravação das câmeras&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">recorded</span> <span class="o">=</span> <span class="kc">True</span></div>
+
+<div class="viewcode-block" id="VideoCamera.stop_record"><a class="viewcode-back" href="../video_camera_teste.html#video_camera_teste.VideoCamera.stop_record">[documentos]</a>    <span class="k">def</span> <span class="nf">stop_record</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Finaliza a gravação em disco das imagens capturadas pela câmera&quot;&quot;&quot;</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">release</span><span class="p">()</span><span class="c1">#(método) -  Finaliza o arquivo de video e o libera pra uso.</span>
+        <span class="sd">&quot;&quot;&quot;:método out.release(): Finaliza o arquivo de video e o libera pra uso&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">recorded</span> <span class="o">=</span> <span class="kc">False</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">gr</span><span class="o">.</span><span class="n">tempo</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lista</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="VideoCamera.stop"><a class="viewcode-back" href="../video_camera_teste.html#video_camera_teste.VideoCamera.stop">[documentos]</a>    <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Finaliza a leitura da camera&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stopped</span> <span class="o">=</span> <span class="kc">True</span></div></div>
+
+</pre></div>
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Ana Laura Gonçalves da Silva e Igor Henrique Camargo.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'3.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

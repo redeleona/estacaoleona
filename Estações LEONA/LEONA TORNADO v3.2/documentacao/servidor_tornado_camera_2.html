@@ -1,0 +1,390 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>servidor_tornado_camera_2 &mdash; documentação Projeto LEONA 3.0</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Índice"
+              href="genindex.html"/>
+        <link rel="search" title="Buscar" href="search.html"/>
+    <link rel="top" title="documentação Projeto LEONA 3.0" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="RedeLeonaDoc.html" class="icon icon-home"> Projeto LEONA
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                3.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="Primeiros Passos.html">Primeiros Passos</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="RedeLeonaDoc.html">Projeto LEONA</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="RedeLeonaDoc.html">Docs</a> &raquo;</li>
+        
+      <li>servidor_tornado_camera_2</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/servidor_tornado_camera_2.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="servidor-tornado-camera-2">
+<h1>servidor_tornado_camera_2<a class="headerlink" href="#servidor-tornado-camera-2" title="Link permanente para este título">¶</a></h1>
+<p>Classe responsável pela transmissão das imagens da câmera noturna e controle do pantilt</p>
+<span class="target" id="module-servidor_tornado_camera_2"></span><dl class="class">
+<dt id="servidor_tornado_camera_2.ControlBox">
+<em class="property">class </em><code class="descclassname">servidor_tornado_camera_2.</code><code class="descname">ControlBox</code><span class="sig-paren">(</span><em>application</em>, <em>request</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/servidor_tornado_camera_2.html#ControlBox"><span class="viewcode-link">[código fonte]</span></a><a class="headerlink" href="#servidor_tornado_camera_2.ControlBox" title="Link permanente para esta definição">¶</a></dt>
+<dd><p>Base: <code class="xref py py-class docutils literal"><span class="pre">tornado.websocket.WebSocketHandler</span></code></p>
+<dl class="attribute">
+<dt id="servidor_tornado_camera_2.ControlBox.azimute">
+<code class="descname">azimute</code><em class="property"> = 0</em><a class="headerlink" href="#servidor_tornado_camera_2.ControlBox.azimute" title="Link permanente para esta definição">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="servidor_tornado_camera_2.ControlBox.cache">
+<code class="descname">cache</code><em class="property"> = []</em><a class="headerlink" href="#servidor_tornado_camera_2.ControlBox.cache" title="Link permanente para esta definição">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="servidor_tornado_camera_2.ControlBox.cache_size">
+<code class="descname">cache_size</code><em class="property"> = 200</em><a class="headerlink" href="#servidor_tornado_camera_2.ControlBox.cache_size" title="Link permanente para esta definição">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="servidor_tornado_camera_2.ControlBox.camera">
+<code class="descname">camera</code><em class="property"> = None</em><a class="headerlink" href="#servidor_tornado_camera_2.ControlBox.camera" title="Link permanente para esta definição">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="servidor_tornado_camera_2.ControlBox.check_origin">
+<code class="descname">check_origin</code><span class="sig-paren">(</span><em>origin</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/servidor_tornado_camera_2.html#ControlBox.check_origin"><span class="viewcode-link">[código fonte]</span></a><a class="headerlink" href="#servidor_tornado_camera_2.ControlBox.check_origin" title="Link permanente para esta definição">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="servidor_tornado_camera_2.ControlBox.control_camera">
+<code class="descname">control_camera</code><em class="property"> = 'desligada'</em><a class="headerlink" href="#servidor_tornado_camera_2.ControlBox.control_camera" title="Link permanente para esta definição">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="servidor_tornado_camera_2.ControlBox.control_record">
+<code class="descname">control_record</code><em class="property"> = 'disponivel'</em><a class="headerlink" href="#servidor_tornado_camera_2.ControlBox.control_record" title="Link permanente para esta definição">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="servidor_tornado_camera_2.ControlBox.elevacao">
+<code class="descname">elevacao</code><em class="property"> = -35</em><a class="headerlink" href="#servidor_tornado_camera_2.ControlBox.elevacao" title="Link permanente para esta definição">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="servidor_tornado_camera_2.ControlBox.estado_estacao">
+<code class="descname">estado_estacao</code><em class="property"> = 'ONLINE'</em><a class="headerlink" href="#servidor_tornado_camera_2.ControlBox.estado_estacao" title="Link permanente para esta definição">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="servidor_tornado_camera_2.ControlBox.get_compression_options">
+<code class="descname">get_compression_options</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/servidor_tornado_camera_2.html#ControlBox.get_compression_options"><span class="viewcode-link">[código fonte]</span></a><a class="headerlink" href="#servidor_tornado_camera_2.ControlBox.get_compression_options" title="Link permanente para esta definição">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="servidor_tornado_camera_2.ControlBox.on_close">
+<code class="descname">on_close</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/servidor_tornado_camera_2.html#ControlBox.on_close"><span class="viewcode-link">[código fonte]</span></a><a class="headerlink" href="#servidor_tornado_camera_2.ControlBox.on_close" title="Link permanente para esta definição">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="servidor_tornado_camera_2.ControlBox.on_message">
+<code class="descname">on_message</code><span class="sig-paren">(</span><em>message</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/servidor_tornado_camera_2.html#ControlBox.on_message"><span class="viewcode-link">[código fonte]</span></a><a class="headerlink" href="#servidor_tornado_camera_2.ControlBox.on_message" title="Link permanente para esta definição">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="servidor_tornado_camera_2.ControlBox.open">
+<code class="descname">open</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/servidor_tornado_camera_2.html#ControlBox.open"><span class="viewcode-link">[código fonte]</span></a><a class="headerlink" href="#servidor_tornado_camera_2.ControlBox.open" title="Link permanente para esta definição">¶</a></dt>
+<dd><p>Cria .json inicial para atualizar status de controle e gravação para o servidor</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="servidor_tornado_camera_2.ControlBox.record">
+<code class="descname">record</code><em class="property"> = None</em><a class="headerlink" href="#servidor_tornado_camera_2.ControlBox.record" title="Link permanente para esta definição">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="servidor_tornado_camera_2.ControlBox.send_updates">
+<em class="property">classmethod </em><code class="descname">send_updates</code><span class="sig-paren">(</span><em>chat</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/servidor_tornado_camera_2.html#ControlBox.send_updates"><span class="viewcode-link">[código fonte]</span></a><a class="headerlink" href="#servidor_tornado_camera_2.ControlBox.send_updates" title="Link permanente para esta definição">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="servidor_tornado_camera_2.ControlBox.update_cache">
+<em class="property">classmethod </em><code class="descname">update_cache</code><span class="sig-paren">(</span><em>chat</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/servidor_tornado_camera_2.html#ControlBox.update_cache"><span class="viewcode-link">[código fonte]</span></a><a class="headerlink" href="#servidor_tornado_camera_2.ControlBox.update_cache" title="Link permanente para esta definição">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="servidor_tornado_camera_2.ControlBox.waiters">
+<code class="descname">waiters</code><em class="property"> = set()</em><a class="headerlink" href="#servidor_tornado_camera_2.ControlBox.waiters" title="Link permanente para esta definição">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="servidor_tornado_camera_2.SocketHandler">
+<em class="property">class </em><code class="descclassname">servidor_tornado_camera_2.</code><code class="descname">SocketHandler</code><span class="sig-paren">(</span><em>application</em>, <em>request</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/servidor_tornado_camera_2.html#SocketHandler"><span class="viewcode-link">[código fonte]</span></a><a class="headerlink" href="#servidor_tornado_camera_2.SocketHandler" title="Link permanente para esta definição">¶</a></dt>
+<dd><p>Base: <code class="xref py py-class docutils literal"><span class="pre">tornado.websocket.WebSocketHandler</span></code></p>
+<dl class="method">
+<dt id="servidor_tornado_camera_2.SocketHandler.check_origin">
+<code class="descname">check_origin</code><span class="sig-paren">(</span><em>origin</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/servidor_tornado_camera_2.html#SocketHandler.check_origin"><span class="viewcode-link">[código fonte]</span></a><a class="headerlink" href="#servidor_tornado_camera_2.SocketHandler.check_origin" title="Link permanente para esta definição">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="servidor_tornado_camera_2.SocketHandler.on_close">
+<code class="descname">on_close</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/servidor_tornado_camera_2.html#SocketHandler.on_close"><span class="viewcode-link">[código fonte]</span></a><a class="headerlink" href="#servidor_tornado_camera_2.SocketHandler.on_close" title="Link permanente para esta definição">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="servidor_tornado_camera_2.SocketHandler.open">
+<code class="descname">open</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/servidor_tornado_camera_2.html#SocketHandler.open"><span class="viewcode-link">[código fonte]</span></a><a class="headerlink" href="#servidor_tornado_camera_2.SocketHandler.open" title="Link permanente para esta definição">¶</a></dt>
+<dd><p>Inicia o envio de dados</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="servidor_tornado_camera_2.SocketHandler.render">
+<code class="descname">render</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/servidor_tornado_camera_2.html#SocketHandler.render"><span class="viewcode-link">[código fonte]</span></a><a class="headerlink" href="#servidor_tornado_camera_2.SocketHandler.render" title="Link permanente para esta definição">¶</a></dt>
+<dd><p>Prepara imagens para transmissão</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="servidor_tornado_camera_2.SocketHandler.writer">
+<code class="descname">writer</code><em class="property"> = None</em><a class="headerlink" href="#servidor_tornado_camera_2.SocketHandler.writer" title="Link permanente para esta definição">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="data">
+<dt id="servidor_tornado_camera_2.config">
+<code class="descclassname">servidor_tornado_camera_2.</code><code class="descname">config</code><em class="property"> = {'baudrate': '', 'frames': 30, 'is_pantilt': 'False', 'is_test': 'False', 'port_con': '', 'port_listen': '8889', 'vc_baudrate': '9600', 'vc_name_arq': 'Camera2.txt', 'vc_port_con': 'COM7'}</em><a class="headerlink" href="#servidor_tornado_camera_2.config" title="Link permanente para esta definição">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Variável config (settings.Settings):</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">Lê o arquivo de configuração. Setting(0). Não alterar pois é o que determina qual camera será inicializada</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="data">
+<dt id="servidor_tornado_camera_2.queue">
+<code class="descclassname">servidor_tornado_camera_2.</code><code class="descname">queue</code><em class="property"> = &lt;multiprocessing.queues.Queue object&gt;</em><a class="headerlink" href="#servidor_tornado_camera_2.queue" title="Link permanente para esta definição">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Variável queue:</th><td class="field-body">inicia a pilha para armazenar imagens. Paramêtro: maxsize(330)–&gt; Controla o buffer máximo de leitura da câmers, NÃO ALTERAR!, esta variável, junto a de “frames” presente no arquivo de configuração, garante que a sincronia do serviço.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="data">
+<dt id="servidor_tornado_camera_2.vc">
+<code class="descclassname">servidor_tornado_camera_2.</code><code class="descname">vc</code><em class="property"> = &lt;VideoCamera(Thread-1, started daemon 6464)&gt;</em><a class="headerlink" href="#servidor_tornado_camera_2.vc" title="Link permanente para esta definição">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Variável vc:</th><td class="field-body">(instância) Inicializa leitura das câmeras</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Ana Laura Gonçalves da Silva e Igor Henrique Camargo.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'3.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

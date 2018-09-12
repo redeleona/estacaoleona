@@ -1,0 +1,421 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>settings &mdash; documentação Projeto LEONA 3.0</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Índice"
+              href="genindex.html"/>
+        <link rel="search" title="Buscar" href="search.html"/>
+    <link rel="top" title="documentação Projeto LEONA 3.0" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="RedeLeonaDoc.html" class="icon icon-home"> Projeto LEONA
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                3.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="Primeiros Passos.html">Primeiros Passos</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="RedeLeonaDoc.html">Projeto LEONA</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="RedeLeonaDoc.html">Docs</a> &raquo;</li>
+        
+      <li>settings</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/settings.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="settings">
+<h1>settings<a class="headerlink" href="#settings" title="Link permanente para este título">¶</a></h1>
+<p>Classe para iniciar as configuração dos Servidores.</p>
+<span class="target" id="module-settings"></span><dl class="class">
+<dt id="settings.Settings">
+<em class="property">class </em><code class="descclassname">settings.</code><code class="descname">Settings</code><span class="sig-paren">(</span><em>n</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/settings.html#Settings"><span class="viewcode-link">[código fonte]</span></a><a class="headerlink" href="#settings.Settings" title="Link permanente para esta definição">¶</a></dt>
+<dd><p>Base: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parâmetros:</th><td class="field-body"><strong>n</strong> (<em>inteiro</em>) – Posição no array de câmeras no arquivo settings.json</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="settings.Settings.arq_settings">
+<code class="descname">arq_settings</code><em class="property"> = None</em><a class="headerlink" href="#settings.Settings.arq_settings" title="Link permanente para esta definição">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Variável arq_settings():</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">Lê Arquivo .json</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="settings.Settings.camera">
+<code class="descname">camera</code><em class="property"> = None</em><a class="headerlink" href="#settings.Settings.camera" title="Link permanente para esta definição">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Variável camera(json.array):</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">Recebe configuração de cada servidor</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="settings.Settings.config">
+<code class="descname">config</code><em class="property"> = None</em><a class="headerlink" href="#settings.Settings.config" title="Link permanente para esta definição">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Contante config:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">Lê as configuração de Porta serial de controle de teste de câmeras e do pantilt, a taxa de aquisição de dados e se a versão de teste deve ser ativada</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="settings.Settings.get_config">
+<code class="descname">get_config</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/settings.html#Settings.get_config"><span class="viewcode-link">[código fonte]</span></a><a class="headerlink" href="#settings.Settings.get_config" title="Link permanente para esta definição">¶</a></dt>
+<dd><p>Retorna as configurações lidas do arquvo settings.json</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="settings.Settings.jsonFile">
+<code class="descname">jsonFile</code><em class="property"> = None</em><a class="headerlink" href="#settings.Settings.jsonFile" title="Link permanente para esta definição">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Variável jsonFile:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">procura o arquivo .json</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="settings.Settings.json_settings">
+<code class="descname">json_settings</code><em class="property"> = None</em><a class="headerlink" href="#settings.Settings.json_settings" title="Link permanente para esta definição">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Variável json_settings():</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">Lê arq_settings e transforma em object.json</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<div class="section" id="arquivo-de-configuracao-settings-json">
+<h2>Arquivo de configuração settings.json<a class="headerlink" href="#arquivo-de-configuracao-settings-json" title="Link permanente para este título">¶</a></h2>
+<p>Esta seção descreve o arquivo de configuração do software da Estação LEONA.</p>
+<dl class="glossary docutils">
+<dt id="term-dependencies">dependencies</dt>
+<dd>Define as dependências necessárias para que o software possa ser executado.</dd>
+</dl>
+<div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span><span class="nt">&quot;dependencies&quot;</span><span class="p">:{</span>
+            <span class="nt">&quot;opencv-python&quot;</span><span class="p">:</span><span class="s2">&quot;3.2.0.7&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;tornado&quot;</span><span class="p">:</span><span class="s2">&quot;4.4.2&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;pyserial&quot;</span><span class="p">:</span><span class="s2">&quot;3.3&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;numpy&quot;</span><span class="p">:</span><span class="s2">&quot;1.12.1&quot;</span>
+    <span class="p">}}</span>
+</pre></div>
+</div>
+<p><strong>Código descrito acima:</strong></p>
+<dl class="glossary docutils">
+<dt id="term-files">files</dt>
+<dd>Define uma lista de arquivos que devem existir na pasta do software para que possa ser executado.</dd>
+<dt id="term-paths">paths</dt>
+<dd>Define uma lista de pastas que devem existir na pasta do software para que possa ser executado.</dd>
+</dl>
+<p><strong>Código descrito acima:</strong></p>
+<div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span><span class="nt">&quot;files&quot;</span><span class="p">:[</span>
+             <span class="s2">&quot;settings.json&quot;</span><span class="p">,</span>
+             <span class="s2">&quot;settings.py&quot;</span><span class="p">,</span>
+             <span class="s2">&quot;comunicacao_serial.py&quot;</span><span class="p">,</span>
+             <span class="s2">&quot;controle_pantilt.py&quot;</span><span class="p">,</span>
+             <span class="s2">&quot;servidor_tornado_camera_1.py&quot;</span><span class="p">,</span>
+             <span class="s2">&quot;servidor_tornado_camera_2.py&quot;</span><span class="p">,</span>
+             <span class="s2">&quot;video_camera.py&quot;</span><span class="p">,</span>
+             <span class="s2">&quot;video_camera_teste.py&quot;</span>
+     <span class="p">],</span>
+     <span class="nt">&quot;paths&quot;</span><span class="p">:[</span>
+             <span class="s2">&quot;videos&quot;</span>
+     <span class="p">]}</span>
+</pre></div>
+</div>
+<dl class="glossary docutils">
+<dt id="term-cameras">cameras</dt>
+<dd><p class="first">Define um array de configuração para cada câmera que existe na estação.</p>
+<dl class="last docutils">
+<dt>is_pantilt</dt>
+<dd>Define um booleano para indicar a presença de um pan-tilt na estação.</dd>
+<dt>controle_pantilt</dt>
+<dd><p class="first">Objeto json que contém as configurações do pan-tilt.</p>
+<dl class="glossary docutils">
+<dt id="term-comunicacao-serial">comunicacao_serial</dt>
+<dd><p class="first">Objeto json com as configurações de Comunicação Serial do pan-tilt.</p>
+<dl class="glossary docutils">
+<dt id="term-port-com">port_com</dt>
+<dd>Define a porta de comunicação.</dd>
+<dt id="term-baudrate">baudrate</dt>
+<dd>Define a taxa de leitura da comunicação.</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+<dt>video_camera</dt>
+<dd>Define um objeto de configuração da classe videoCamera.</dd>
+<dt>frames</dt>
+<dd>Define a taxa de aquisição das câmeras.</dd>
+<dt>port_listen</dt>
+<dd>Define a porta do websocket do servidor tornado.</dd>
+<dt>is_test</dt>
+<dd>Define um booleano para indicar se deverá iniciar em modo de teste.</dd>
+<dt>teste</dt>
+<dd><p class="first">Define um objeto contendo os dados para teste do software.</p>
+<dl class="glossary docutils">
+<dt id="term-video-camera">video_camera</dt>
+<dd><p class="first">Define um objeto de configuração da classe videoCamera.</p>
+<dl class="glossary docutils">
+<dt id="term-8">port_com</dt>
+<dd>Define a porta de comunicação com o arduino.</dd>
+<dt id="term-9">baudrate</dt>
+<dd>Define a taxa de leitura da comunicação com o arduino.</dd>
+<dt id="term-name-arq">name_arq</dt>
+<dd>Define o nome do arquivo onde será escrito os tempos de cada aquisição da classe videoCamera.</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+<p><strong>Código descrito acima:</strong></p>
+<div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span><span class="nt">&quot;cameras&quot;</span><span class="p">:[</span>
+        <span class="p">{</span>
+        <span class="nt">&quot;is_pantilt&quot;</span><span class="p">:</span><span class="s2">&quot;False&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;controle_pantilt&quot;</span><span class="p">:{</span>
+                <span class="nt">&quot;comunicacao_serial&quot;</span><span class="p">:{</span><span class="nt">&quot;port_com&quot;</span><span class="p">:</span><span class="s2">&quot;COM4&quot;</span><span class="p">,</span><span class="nt">&quot;baudrate&quot;</span><span class="p">:</span><span class="s2">&quot;9600&quot;</span><span class="p">}</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;video_camera&quot;</span><span class="p">:{},</span>
+        <span class="nt">&quot;frames&quot;</span><span class="p">:</span><span class="mi">30</span><span class="p">,</span>
+        <span class="nt">&quot;port_listen&quot;</span><span class="p">:</span><span class="s2">&quot;8888&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;is_test&quot;</span><span class="p">:</span><span class="s2">&quot;False&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;test&quot;</span><span class="p">:{</span>
+                <span class="nt">&quot;video_camera&quot;</span><span class="p">:{</span>
+                        <span class="nt">&quot;port_com&quot;</span><span class="p">:</span><span class="s2">&quot;COM5&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;baudrate&quot;</span><span class="p">:</span><span class="s2">&quot;9600&quot;</span><span class="p">,</span>
+                        <span class="nt">&quot;name_arq&quot;</span><span class="p">:</span><span class="s2">&quot;Camera1.txt&quot;</span>
+                <span class="p">}}}]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Ana Laura Gonçalves da Silva e Igor Henrique Camargo.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'3.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

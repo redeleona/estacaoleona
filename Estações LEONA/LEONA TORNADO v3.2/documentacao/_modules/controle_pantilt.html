@@ -1,0 +1,367 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>controle_pantilt &mdash; documentação Projeto LEONA 3.0</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Índice"
+              href="../genindex.html"/>
+        <link rel="search" title="Buscar" href="../search.html"/>
+    <link rel="top" title="documentação Projeto LEONA 3.0" href="../index.html"/>
+        <link rel="up" title="Código do módulo" href="index.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../RedeLeonaDoc.html" class="icon icon-home"> Projeto LEONA
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                3.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../Primeiros Passos.html">Primeiros Passos</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../RedeLeonaDoc.html">Projeto LEONA</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../RedeLeonaDoc.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Código do módulo</a> &raquo;</li>
+        
+      <li>controle_pantilt</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Código fonte para controle_pantilt</h1><div class="highlight"><pre>
+<span></span><span class="c1">#controle_pantilt.py</span>
+<span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Igor Henrique Camargo, Ana Laura Gonçalves da Silva&#39;</span>
+<span class="n">__date__</span> <span class="o">=</span> <span class="s2">&quot;$22/08/2017 13:30:00$&quot;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;1.0&#39;</span>
+
+<div class="viewcode-block" id="ControlePantilt"><a class="viewcode-back" href="../controle_pantilt.html#controle_pantilt.ControlePantilt">[documentos]</a><span class="k">class</span> <span class="nc">ControlePantilt</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">con</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Iniciar a posição do Pan-Tilt</span>
+
+<span class="sd">        :type con: object</span>
+<span class="sd">        :param con: Instância de comunicao serial      </span>
+<span class="sd">  </span>
+<span class="sd">        Padrão de comando de comunicação entre Arduino e Pan-Tilt:</span>
+
+<span class="sd">        .. code:: bash</span>
+<span class="sd">        </span>
+<span class="sd">            !000U* - Mover para cima</span>
+<span class="sd">            !000D* - Mover para baixo</span>
+<span class="sd">            !000R* - Mover para direita</span>
+<span class="sd">            !000L* - Mover para esquerda</span>
+<span class="sd">            !111O* - Ligar camera (um,um,um,letra &#39;O&#39;)</span>
+<span class="sd">            !111F* - Desligar camera</span>
+<span class="sd">            </span>
+<span class="sd">        Valores máximos e mínimos:</span>
+<span class="sd">            Azimute: 0º -&gt; 350º</span>
+<span class="sd">            Elevação: -35º -&gt; +35º      </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">azGraus</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="sd">&quot;&quot;&quot;:variável azGraus:  (inteiro) Armazena a ultima posicao do pan-tilt em azimute&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">elGraus</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="sd">&quot;&quot;&quot;:variável elGraus: (inteiro) Armazena a ultima posicao do pan-tilt em elevacao&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">con</span> <span class="o">=</span> <span class="n">con</span>
+        <span class="sd">&quot;&quot;&quot;:variável con: (instância) Recebe a comunicação serial iniciado pela classe principal&quot;&quot;&quot;</span>
+        
+        <span class="k">if</span> <span class="n">con</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="c1"># Verifica se a comunicação serial foi iniciada</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Sem Comunicação Serial&#39;</span><span class="p">)</span>
+            <span class="k">return</span>
+        
+<div class="viewcode-block" id="ControlePantilt.formatargraus"><a class="viewcode-back" href="../controle_pantilt.html#controle_pantilt.ControlePantilt.formatargraus">[documentos]</a>    <span class="k">def</span> <span class="nf">formatargraus</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">graus</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Verifica valor informado e formata no padrão de bits</span>
+
+<span class="sd">        :type graus: inteiro</span>
+<span class="sd">        :param graus: valor de azimute ou elevação selecionado pelo observador da Rede Leona</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">graus</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s1">&#39;!00&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">graus</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">graus</span> <span class="o">&gt;=</span> <span class="mi">10</span> <span class="ow">and</span> <span class="n">graus</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s1">&#39;!0&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">graus</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s1">&#39;!&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">graus</span><span class="p">)</span></div>
+    
+<div class="viewcode-block" id="ControlePantilt.converterelevacao"><a class="viewcode-back" href="../controle_pantilt.html#controle_pantilt.ControlePantilt.converterelevacao">[documentos]</a>    <span class="k">def</span> <span class="nf">converterelevacao</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">graus</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Converte o valor recebido para o valor esperado pelo controlador de Pan-Tilt, onde</span>
+<span class="sd">        -35º == 0, 0º == 35, 35º == 70, ou seja todos os valores recebidos devem ser acrescidos de 35</span>
+
+<span class="sd">        :type graus: inteiro</span>
+<span class="sd">        :param graus: valor entre -35 e 35 elevação</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">graus</span><span class="o">+</span><span class="mi">35</span></div>
+        
+<div class="viewcode-block" id="ControlePantilt.azimute"><a class="viewcode-back" href="../controle_pantilt.html#controle_pantilt.ControlePantilt.azimute">[documentos]</a>    <span class="k">def</span> <span class="nf">azimute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">graus</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Verifica se os graus recebidos estão entre 0 e 350, compara com o valor anterior e assim determina se o comando enviado deve ser para a direita ou esquerda</span>
+
+<span class="sd">        :type graus: inteiro</span>
+<span class="sd">        :param graus: valor entre 0 e 350 azimute        </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">graus</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">graus</span> <span class="o">&lt;=</span> <span class="mi">350</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">graus</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">azGraus</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">esquerda</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">azGraus</span> <span class="o">-</span> <span class="n">graus</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">graus</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">azGraus</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">direita</span><span class="p">(</span><span class="n">graus</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">azGraus</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">azGraus</span> <span class="o">=</span> <span class="n">graus</span></div>
+        
+<div class="viewcode-block" id="ControlePantilt.elevacao"><a class="viewcode-back" href="../controle_pantilt.html#controle_pantilt.ControlePantilt.elevacao">[documentos]</a>    <span class="k">def</span> <span class="nf">elevacao</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">graus</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Verifica se os graus recebidos estão entre 0 e 70, compara com o valor anterior e assim determina se o comando enviado deve ser para cima ou baixo</span>
+
+<span class="sd">        :type graus: inteiro</span>
+<span class="sd">        :param graus: valor entre -35 e 35 elevação</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">graus</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">converterelevacao</span><span class="p">(</span><span class="n">graus</span><span class="p">)</span><span class="c1">#converterelevacao(graus)- Converte o valor recebido para o esperado pelo controlador</span>
+        <span class="k">if</span> <span class="n">graus</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">graus</span> <span class="o">&lt;=</span> <span class="mi">70</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">graus</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">elGraus</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">descer</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">elGraus</span> <span class="o">-</span> <span class="n">graus</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">graus</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">elGraus</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">subir</span><span class="p">(</span><span class="n">graus</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">elGraus</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">elGraus</span> <span class="o">=</span> <span class="n">graus</span></div>
+            
+<div class="viewcode-block" id="ControlePantilt.subir"><a class="viewcode-back" href="../controle_pantilt.html#controle_pantilt.ControlePantilt.subir">[documentos]</a>    <span class="k">def</span> <span class="nf">subir</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">graus</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Concatena os graus com !###U* onde #### representa os graus, e envia para a controladora</span>
+
+<span class="sd">        :type graus: inteiro</span>
+<span class="sd">        :param graus: valor a ser enviado para controlador</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">con</span><span class="o">.</span><span class="n">enviar</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">formatargraus</span><span class="p">(</span><span class="n">graus</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;U*&#39;</span><span class="p">)</span></div>
+        
+<div class="viewcode-block" id="ControlePantilt.descer"><a class="viewcode-back" href="../controle_pantilt.html#controle_pantilt.ControlePantilt.descer">[documentos]</a>    <span class="k">def</span> <span class="nf">descer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">graus</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Concatena os graus com !###D* onde #### representa os graus, e envia para a controladora</span>
+
+<span class="sd">        :type graus: inteiro</span>
+<span class="sd">        :param graus: valor a ser enviado para controlador</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">con</span><span class="o">.</span><span class="n">enviar</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">formatargraus</span><span class="p">(</span><span class="n">graus</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;D*&#39;</span><span class="p">)</span></div>
+        
+<div class="viewcode-block" id="ControlePantilt.direita"><a class="viewcode-back" href="../controle_pantilt.html#controle_pantilt.ControlePantilt.direita">[documentos]</a>    <span class="k">def</span> <span class="nf">direita</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">graus</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Concatena os graus com !###R* onde #### representa os graus, e envia para a controladora</span>
+
+<span class="sd">        :type graus: inteiro</span>
+<span class="sd">        :param graus: valor a ser enviado para controlador</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">con</span><span class="o">.</span><span class="n">enviar</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">formatargraus</span><span class="p">(</span><span class="n">graus</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;R*&#39;</span><span class="p">)</span></div>
+        
+<div class="viewcode-block" id="ControlePantilt.esquerda"><a class="viewcode-back" href="../controle_pantilt.html#controle_pantilt.ControlePantilt.esquerda">[documentos]</a>    <span class="k">def</span> <span class="nf">esquerda</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">graus</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Concatena os graus com !###L* onde #### representa os graus, e envia para a controladora</span>
+
+<span class="sd">        :type graus: inteiro</span>
+<span class="sd">        :param graus: valor a ser enviado para controlador</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">con</span><span class="o">.</span><span class="n">enviar</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">formatargraus</span><span class="p">(</span><span class="n">graus</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;L*&#39;</span><span class="p">)</span></div>
+        
+<div class="viewcode-block" id="ControlePantilt.resetarazimute"><a class="viewcode-back" href="../controle_pantilt.html#controle_pantilt.ControlePantilt.resetarazimute">[documentos]</a>    <span class="k">def</span> <span class="nf">resetarazimute</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Envia para a controladora !350L, assim resetando azimute em 0º&quot;&quot;&quot;</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">con</span><span class="o">.</span><span class="n">enviar</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">formatargraus</span><span class="p">(</span><span class="mi">350</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;L*&#39;</span><span class="p">)</span></div>
+        
+<div class="viewcode-block" id="ControlePantilt.resetarelevacao"><a class="viewcode-back" href="../controle_pantilt.html#controle_pantilt.ControlePantilt.resetarelevacao">[documentos]</a>    <span class="k">def</span> <span class="nf">resetarelevacao</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Envia para a controladora !070D, assim resetando a elevação em 0º ou -35º &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">con</span><span class="o">.</span><span class="n">enviar</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">formatargraus</span><span class="p">(</span><span class="mi">70</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;D*&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ControlePantilt.ligarcamera"><a class="viewcode-back" href="../controle_pantilt.html#controle_pantilt.ControlePantilt.ligarcamera">[documentos]</a>    <span class="k">def</span> <span class="nf">ligarcamera</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Liga as câmeras: &quot;&quot;&quot;</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">con</span><span class="o">.</span><span class="n">enviar</span><span class="p">(</span><span class="s1">&#39;!111O*&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ControlePantilt.desligarcamera"><a class="viewcode-back" href="../controle_pantilt.html#controle_pantilt.ControlePantilt.desligarcamera">[documentos]</a>    <span class="k">def</span> <span class="nf">desligarcamera</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Desliga as câmeras: Comando deve ser sempre executado após as observações agendadas, ou hórarios determinado na Estação LEONA, para diminuir a degrdação das câmeras CCDs.&quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">con</span><span class="o">.</span><span class="n">enviar</span><span class="p">(</span><span class="s1">&#39;!111F*&#39;</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">__del__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Garante que caso exista algum erro ou falha no sistema as câmeras serão desligadas &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">desligarcamera</span><span class="p">()</span></div>
+</pre></div>
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Ana Laura Gonçalves da Silva e Igor Henrique Camargo.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'3.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

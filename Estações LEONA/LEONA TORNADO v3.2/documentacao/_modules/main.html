@@ -1,0 +1,329 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>main &mdash; documentação Projeto LEONA 3.0</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Índice"
+              href="../genindex.html"/>
+        <link rel="search" title="Buscar" href="../search.html"/>
+    <link rel="top" title="documentação Projeto LEONA 3.0" href="../index.html"/>
+        <link rel="up" title="Código do módulo" href="index.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../RedeLeonaDoc.html" class="icon icon-home"> Projeto LEONA
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                3.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../Primeiros Passos.html">Primeiros Passos</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../RedeLeonaDoc.html">Projeto LEONA</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../RedeLeonaDoc.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Código do módulo</a> &raquo;</li>
+        
+      <li>main</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Código fonte para main</h1><div class="highlight"><pre>
+<span></span><span class="c1">#main.py</span>
+<span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Igor Henrique Camargo, Ana Laura Gonçalves da Silva&#39;</span>
+<span class="n">__date__</span> <span class="o">=</span> <span class="s2">&quot;$22/08/2017 13:30:00$&quot;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;1.0&#39;</span>
+
+<span class="kn">import</span> <span class="nn">pip</span><span class="o">,</span> <span class="nn">json</span><span class="o">,</span> <span class="nn">subprocess</span><span class="o">,</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">threading</span><span class="o">,</span> <span class="nn">time</span>
+
+<div class="viewcode-block" id="verificar_arquivos"><a class="viewcode-back" href="../main.html#main.verificar_arquivos">[documentos]</a><span class="k">def</span> <span class="nf">verificar_arquivos</span><span class="p">(</span><span class="n">files</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Verifica se todos os arquivos necessários para execução do software existem</span>
+
+<span class="sd">    :type files: json.array</span>
+<span class="sd">    :param files: Lista json contendo os arquivos que deverão existir na pasta do software</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Verificando Arquivos ...&#39;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">r</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Arquivo &#39;</span><span class="o">+</span><span class="n">f</span><span class="o">+</span><span class="s1">&#39; não encontrado&#39;</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Todos os arquivos verificados!&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="verificar_pastas"><a class="viewcode-back" href="../main.html#main.verificar_pastas">[documentos]</a><span class="k">def</span> <span class="nf">verificar_pastas</span><span class="p">(</span><span class="n">paths</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Verifica se todos as pastas necessárias para execução do software existem</span>
+
+<span class="sd">    :type paths: json.array</span>
+<span class="sd">    :param paths: Lista json contendo as pastas que deverão existir na pasta do software</span>
+<span class="sd">    &quot;&quot;&quot;</span>    
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Verificando Pastas ...&#39;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">paths</span><span class="p">:</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">r</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Criando pasta &#39;</span><span class="o">+</span> <span class="n">p</span><span class="p">)</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="s1">&#39;videos&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Todos as pastas verificados!&#39;</span><span class="p">)</span></div>
+    
+<div class="viewcode-block" id="verificar_dependencias"><a class="viewcode-back" href="../main.html#main.verificar_dependencias">[documentos]</a><span class="k">def</span> <span class="nf">verificar_dependencias</span><span class="p">(</span><span class="n">dependencies</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Verifica se todos as dependências necessárias para execução do software existem</span>
+
+<span class="sd">    :type dependencies: json.array</span>
+<span class="sd">    :param dependencies: Lista json contendo as dependências que deverão existir para execução do software</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n\n</span><span class="s1">Verificando pendências ...&#39;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">dependencies</span><span class="p">:</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">pip</span><span class="o">.</span><span class="n">get_installed_distributions</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">d</span> <span class="o">==</span> <span class="n">i</span><span class="o">.</span><span class="n">key</span> <span class="ow">and</span> <span class="n">dependencies</span><span class="p">[</span><span class="n">d</span><span class="p">]</span> <span class="o">==</span> <span class="n">i</span><span class="o">.</span><span class="n">version</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;dependecie match: &#39;</span><span class="o">+</span><span class="n">d</span><span class="o">+</span><span class="s1">&#39;, &#39;</span><span class="o">+</span><span class="n">dependencies</span><span class="p">[</span><span class="n">d</span><span class="p">])</span>
+                <span class="n">m</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="k">break</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">m</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">r</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="s1">&#39;pip install &#39;</span><span class="o">+</span><span class="n">d</span><span class="o">+</span><span class="s1">&#39;==&#39;</span><span class="o">+</span><span class="n">dependencies</span><span class="p">[</span><span class="n">d</span><span class="p">])</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Erro ao instalar&#39;</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Todas dependências instaladas&#39;</span><span class="p">)</span>     </div>
+
+<div class="viewcode-block" id="camera"><a class="viewcode-back" href="../main.html#main.camera">[documentos]</a><span class="k">def</span> <span class="nf">camera</span><span class="p">(</span><span class="n">arg</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Recebe comando para iniciar servidores</span>
+
+<span class="sd">    :type arg: string</span>
+<span class="sd">    :param arg: Comando de inicialização da câmera 1 ou 2</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="sd">&quot;&quot;&quot;:função subprocess.call(): Cria um subprocesso para iniciar o servidor tornado para transmissão e controle da Câmera&quot;&quot;&quot;</span>
+    <span class="n">subprocess</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="main"><a class="viewcode-back" href="../main.html#main.main">[documentos]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Verifica se todos os arquivos e dependências estão presentes na Estação LEONA e se estiver inicia o serviço de transmissão.&quot;&quot;&quot;</span>
+  
+    <span class="n">jsonFile</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span><span class="s1">&#39;settings.json&#39;</span><span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot;:variável jsonFile: Procura o arquivo de configuração na pasta local&quot;&quot;&quot;</span>
+    <span class="n">arq_settings</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">jsonFile</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot;:variável arq_settings: Armaze os dados contidos no arquivo .json&quot;&quot;&quot;</span>
+    <span class="n">json_settings</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">arq_settings</span><span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot;:váriável json_settings: Transforma &quot;arq_settings&quot; em um objeto do tipo json&quot;&quot;&quot;</span>
+    <span class="n">dependencies</span> <span class="o">=</span> <span class="n">json_settings</span><span class="p">[</span><span class="s1">&#39;dependencies&#39;</span><span class="p">]</span>
+    <span class="sd">&quot;&quot;&quot;:variável dependencies: Lê todos as linhas com a marcação &quot;dependecies&quot; em &quot;json_settings&quot;, ou seja as bilbiotecas que devem ser adicionadas para que o software da Estação LEONA funcione corretamente&quot;&quot;&quot;</span>
+    <span class="n">files</span> <span class="o">=</span> <span class="n">json_settings</span><span class="p">[</span><span class="s1">&#39;files&#39;</span><span class="p">]</span>
+    <span class="sd">&quot;&quot;&quot;:variável files: Lê todos as linhas com a marcação &quot;files&quot; em &quot;json_settings&quot;, ou seja os scripts Python que devem existir para que o software da Estação LEONA funcione&quot;&quot;&quot;</span>
+    <span class="n">paths</span> <span class="o">=</span> <span class="n">json_settings</span><span class="p">[</span><span class="s1">&#39;paths&#39;</span><span class="p">]</span>
+    <span class="sd">&quot;&quot;&quot;:variável paths: Lê todos as linhas com a marcação &quot;files&quot; em &quot;json_settings&quot;, ou seja as pastas que devem existir para que o software da Estação LEONA funcione&quot;&quot;&quot;</span>
+    <span class="n">verificar_arquivos</span><span class="p">(</span><span class="n">files</span><span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot;:função verificar_arquivos: Verifica se todos arquivos necessários estão na pasta local&quot;&quot;&quot;</span>
+    <span class="n">verificar_pastas</span><span class="p">(</span><span class="n">paths</span><span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot;:função verificar_pastas: Verifica se todas as pastas necessárias estão na pasta local&quot;&quot;&quot;</span>
+    <span class="n">verificar_dependencias</span><span class="p">(</span><span class="n">dependencies</span><span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot;:função verificar_dependencias: Verifica as bibliotecas estão instaladas na Estação LEONA&quot;&quot;&quot;</span>
+
+    <span class="n">t</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span> <span class="o">=</span> <span class="n">camera</span><span class="p">,</span><span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;python servidor_tornado_camera_1.py&#39;</span><span class="p">,))</span>
+    <span class="sd">&quot;&quot;&quot;:thread t: inicia o Servidor responsável pela leitura e trasmissão da Camera 1&quot;&quot;&quot;</span>
+    <span class="n">t</span><span class="o">.</span><span class="n">daemon</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">t</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+    <span class="n">t1</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span> <span class="o">=</span> <span class="n">camera</span><span class="p">,</span><span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;python servidor_tornado_camera_2.py&#39;</span><span class="p">,))</span>
+    <span class="sd">&quot;&quot;&quot;:thread t2: inicia o Servidor responsável pela leitura e trasmissão da Camera 2&quot;&quot;&quot;</span>
+    <span class="n">t1</span><span class="o">.</span><span class="n">daemon</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">t1</span><span class="o">.</span><span class="n">start</span><span class="p">()</span></div>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Chama o método main para iniciar o serviço da Estação LEONA&quot;&quot;&quot;</span>
+    
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Ana Laura Gonçalves da Silva e Igor Henrique Camargo.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'3.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
