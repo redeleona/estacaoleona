@@ -1,0 +1,4 @@
+A transmissão de comandos e imagens das câmeras foi setada para iniciar
+automaticamente junto ao sistema operacional. Entretanto, caso seja necessário,
+ou em caso de teste, o software pode ser iniciado utilizando o script 
+"Inicio manual da transmissão.py" localizado nesta pasta.  

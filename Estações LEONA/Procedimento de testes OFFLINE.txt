@@ -1,0 +1,39 @@
+1)Teste OFFLINE das câneras:
+
+	1.a) Inicie o aplicativo "IEI_Videocapture_Test_Suite". Disponível em:
+		- "Desktop\Teste Offline das câmeras\IEI_Videocapture_Test_Suite",
+		- "C:\Program Files\IVCE-C6XX Series\IEI_Videocapture_Test_Suite.exe";
+	1.b) Clique em "Get Cards". Em "Avaliable Cards" será exibido 'CardX' 
+		('X': número correspondente ao exibido na placa de vídeo. Visivel no display da placa, na traseira do computador);
+	1.c) Clique em "Capture Settings", verifique em 'Camera selection' se os itens: Camera1,3,5 e 7, estão selecionados.
+		Se não, selecione. Aperte 'OK';
+	1.d) Clique em 'RUN'.
+	1.e) A câmera diurna deve aparecer no canto esquerdo inferior. Se não, verifique a conexão.
+	
+2) Teste OFFLINE do controlador do pantilt:
+
+	2.a) Inicie o aplicativo "Pantilt_001_28-08-15". Disponível em:
+		- "Desktop\Teste Offline do controlador\Pantilt_001_28-08-15"
+		
+	2.b) No menu 'Ferrramentas' no item Porta, selecione a porta COM onde as palavras "Arduino/Genuino Uno" aparecerem.
+        
+	2.c) Clique no simbolo de Lupa no canto superior direito no aplicativo Arduino com nome 'Monitor Serial'.
+
+	2.d) Digite o comando desejado e clique em 'Enviar'. Utilize os comandos indicados abaixo:
+		 Dicas: 
+		 - Utilize o Aplicativo "IEI_Videocapture_Test_Suite" e a câmera diurna para visualizar remotamente
+		 se os comandos estão sendo enviados.
+		 - Verifique se ao clicar em 'Enviar' uma luz AZUL acende no controlador do Pantilt
+				
+		Padrão de COMANDO de comunicação entre Arduino e Pan-Tilt:
+			
+				!XXXU* - Mover para cima (Substitua o 'X' pelo valor desejado. Ex: '!070U*')
+				!XXXD* - Mover para baixo (Substitua o 'X' pelo valor desejado. Ex: '!007D*')
+				!XXXR* - Mover para direita (Substitua o 'X' pelo valor desejado. Ex: '!040R*')
+				!XXXL* - Mover para esquerda (Substitua o 'X' pelo valor desejado. Ex: '!350L*')
+				!111O* - Ligar camera (um,um,um,letra 'O')
+				!111F* - Desligar camera
+				
+			Valores máximos e mínimos:
+				Azimute: 0º -> 350º  ; Comandos 'Mover para direita' e 'Mover para esquerda'
+				Elevação: 0º -> 70º ; Comandos 'Mover para cima' e 'Mover para baixo'      
